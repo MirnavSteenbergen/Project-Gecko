@@ -14,34 +14,64 @@ public class Player : MonoBehaviour
     [SerializeField] float gravity = -36;
     [SerializeField] float maxFallSpeed = 30;
 
+    [Header("Wall Climbing")]
+    //[SerializeField] private WallDetector wallDetectorTL;
+    //[SerializeField] private WallDetector wallDetectorTR;
+    //[SerializeField] private WallDetector wallDetectorBL;
+    //[SerializeField] private WallDetector wallDetectorBR;
+
+    [SerializeField] private WallDetector wallDetectorLB;
+    [SerializeField] private WallDetector wallDetectorLT;
+
+    bool wallLeftTop;
+    bool wallLeftBottom;
+    bool wallRightTop;
+    bool wallRightBottom;
+    bool wallTopLeft;
+    bool wallTopRight;
+    bool wallBottomLeft;
+    bool wallBottomRight;
+
+    private bool ignoreMovement = false;
+
     [Header("Animation")]
     [SerializeField] float tiltAngle = -15;
     [SerializeField] [Range(0f, 1f)] float squishFactor = 0.25f;
 
-    private Vector3 velocity;
+    private Vector2 velocity;
     private bool grounded; // Only used for animation
 
     private Controller2D controller;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D coll;
 
     void Awake()
     {
         controller = GetComponent<Controller2D>();
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        coll = GetComponent<BoxCollider2D>();
     }
 
     void Update()
     {
-        MovePlayer();
+        if (!ignoreMovement) MovePlayer();
         //AnimatePlayer();
     }
 
     void MovePlayer()
     {
         float hor = Input.GetAxisRaw("Horizontal");
+        float ver = Input.GetAxisRaw("Vertical");
         bool jump = Input.GetButtonDown("Jump");
+        bool grab = Input.GetKey(KeyCode.Z);
+
+
+
+        wallLeftTop = wallDetectorLT.overlappingWall;
+        wallLeftBottom = wallDetectorLB.overlappingWall;
+
 
         // Y movement
 
@@ -51,13 +81,22 @@ public class Player : MonoBehaviour
             velocity.y = 0;
         }
 
-        // Apply gravity
-        velocity.y += gravity * Time.deltaTime;
-
-        // Check for jump
-        if (jump && controller.collisions.below)
+        if (controller.collisions.below && jump)
         {
             velocity.y = jumpStrength;
+        }
+
+        WallDetection(grab, hor, ver);
+
+        if ((wallLeftBottom || wallLeftTop) && grab)
+        {
+            velocity.y = ver * maxSpeed;
+            //Debug.Log("grabbing");
+        }
+        else
+        {
+            // Apply gravity
+            velocity.y += gravity * Time.deltaTime;
         }
 
         // Limit fall speed
@@ -77,6 +116,9 @@ public class Player : MonoBehaviour
 
         // Pass resulting movement to controller
         controller.Move(velocity * Time.deltaTime);
+
+
+        Debug.Log(velocity);
     }
 
     void AnimatePlayer()
@@ -133,5 +175,42 @@ public class Player : MonoBehaviour
         {
             spriteRenderer.transform.localScale = Vector3.one;
         }
+    }
+
+    void WallDetection(bool grab, float moveX, float moveY)
+    {
+        bool movingLeft     = moveX < 0;
+        bool movingRight    = moveX > 0;
+        bool movingUp       = moveY > 0;
+        bool movingDown     = moveY < 0;
+
+        bool wallLeft;
+        bool wallRight;
+        bool wallTop;
+        bool wallBottom;
+
+
+        if (grab)
+        {
+            if (!wallLeftTop && wallLeftBottom && movingLeft)
+            {
+                StartCoroutine(GoAroundCorner(new Vector2(-1, 1)));
+            }
+        }
+    }
+
+    IEnumerator GoAroundCorner(Vector2 dir)
+    {
+        Debug.Log("GOING AROUND THE CORNER");
+        ignoreMovement = true;
+
+        yield return new WaitForSeconds(0.1f);
+
+        transform.position = new Vector2(transform.position.x + dir.x * 0.5f * coll.size.x, transform.position.y + dir.y * 0.5f * coll.size.y);
+
+        yield return new WaitForSeconds(0.1f);
+
+        ignoreMovement = false;
+        velocity = Vector2.zero;
     }
 }
