@@ -6,12 +6,14 @@ public class WallDetector : MonoBehaviour
 {
    [SerializeField] private LayerMask collisionLayer;
     public bool overlappingWall;
+    public Collider2D wallCollider;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.layer == LayerMask.NameToLayer("Solids"))
         {
             overlappingWall = true;
+            wallCollider = collider;
         }
     }
 
@@ -20,6 +22,7 @@ public class WallDetector : MonoBehaviour
         if (collider.gameObject.layer == LayerMask.NameToLayer("Solids"))
         {
             overlappingWall = false;
+            wallCollider = null;
         }
     }
 }

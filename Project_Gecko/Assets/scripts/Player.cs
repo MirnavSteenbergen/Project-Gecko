@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Tilemaps;
 
 // Fixed micro sinking into obstacles for a microsecond by turning on "Auto Sync Transforms" under the Physics and Physics 2D tab in the project settings.
 
@@ -15,14 +16,15 @@ public class Player : MonoBehaviour
     [SerializeField] float maxFallSpeed = 30;
 
     [Header("Wall Climbing")]
-    //[SerializeField] private WallDetector wallDetectorTL;
-    //[SerializeField] private WallDetector wallDetectorTR;
-    //[SerializeField] private WallDetector wallDetectorBL;
-    //[SerializeField] private WallDetector wallDetectorBR;
-
-    [SerializeField] private WallDetector wallDetectorLB;
+    [SerializeField] private Grid tileGrid;
     [SerializeField] private WallDetector wallDetectorLT;
-
+    [SerializeField] private WallDetector wallDetectorLB;
+    [SerializeField] private WallDetector wallDetectorRT;
+    [SerializeField] private WallDetector wallDetectorRB;
+    [SerializeField] private WallDetector wallDetectorTL;
+    [SerializeField] private WallDetector wallDetectorTR;
+    [SerializeField] private WallDetector wallDetectorBL;
+    [SerializeField] private WallDetector wallDetectorBR;
     bool wallLeftTop;
     bool wallLeftBottom;
     bool wallRightTop;
@@ -32,14 +34,13 @@ public class Player : MonoBehaviour
     bool wallBottomLeft;
     bool wallBottomRight;
 
-    private bool ignoreMovement = false;
-
     [Header("Animation")]
     [SerializeField] float tiltAngle = -15;
     [SerializeField] [Range(0f, 1f)] float squishFactor = 0.25f;
 
     private Vector2 velocity;
     private bool grounded; // Only used for animation
+    private bool ignoreMovement = false;
 
     private Controller2D controller;
     private Animator animator;
@@ -67,11 +68,14 @@ public class Player : MonoBehaviour
         bool jump = Input.GetButtonDown("Jump");
         bool grab = Input.GetKey(KeyCode.Z);
 
-
-
         wallLeftTop = wallDetectorLT.overlappingWall;
         wallLeftBottom = wallDetectorLB.overlappingWall;
-
+        wallRightTop = wallDetectorRT.overlappingWall;
+        wallRightBottom = wallDetectorRB.overlappingWall;
+        wallTopLeft = wallDetectorTL.overlappingWall;
+        wallTopRight = wallDetectorTR.overlappingWall;
+        wallBottomLeft = wallDetectorBL.overlappingWall;
+        wallBottomRight = wallDetectorBR.overlappingWall;
 
         // Y movement
 
@@ -86,16 +90,29 @@ public class Player : MonoBehaviour
             velocity.y = jumpStrength;
         }
 
-        WallDetection(grab, hor, ver);
+        CornerCLimbDetection(grab, hor, ver);
 
-        if ((wallLeftBottom || wallLeftTop) && grab)
+        // wall climbing
+        bool wallClimbing = false;
+        if (grab)
         {
-            velocity.y = ver * maxSpeed;
-            //Debug.Log("grabbing");
+            // vertical wall climbing
+            if (wallLeftTop || wallLeftBottom || wallRightTop || wallRightBottom)
+            {
+                wallClimbing = true;
+                velocity.y = ver * maxSpeed;
+            }
+            // horizontal wall climbing
+            if (wallTopLeft || wallTopRight || wallBottomLeft || wallBottomRight)
+            {
+                wallClimbing = true;
+                velocity.x = hor * maxSpeed;
+            }
         }
-        else
+
+        // Apply gravity
+        if (!wallClimbing)
         {
-            // Apply gravity
             velocity.y += gravity * Time.deltaTime;
         }
 
@@ -103,7 +120,7 @@ public class Player : MonoBehaviour
         velocity.y = Mathf.Min(velocity.y, maxFallSpeed);
 
         // X movement
-        if (hor != 0)
+        if (hor != 0 && !wallClimbing)
         {
             // Accelerate
             velocity.x = Mathf.Sign(hor) * Mathf.Min(Mathf.Abs(velocity.x) + (acceleration * Time.deltaTime), maxSpeed);
@@ -116,9 +133,6 @@ public class Player : MonoBehaviour
 
         // Pass resulting movement to controller
         controller.Move(velocity * Time.deltaTime);
-
-
-        Debug.Log(velocity);
     }
 
     void AnimatePlayer()
@@ -131,8 +145,8 @@ public class Player : MonoBehaviour
 
         // Animator
         animator.SetFloat("velY", velocity.y);
-        animator.SetBool("isRunning", velocity.x != 0 && !controller.collisions.left && !controller.collisions.right );
-        animator.SetBool("isGrounded", controller.collisions.below );
+        animator.SetBool("isRunning", velocity.x != 0 && !controller.collisions.left && !controller.collisions.right);
+        animator.SetBool("isGrounded", controller.collisions.below);
 
         // Tilt
         if (!controller.collisions.left && !controller.collisions.right)
@@ -177,36 +191,73 @@ public class Player : MonoBehaviour
         }
     }
 
-    void WallDetection(bool grab, float moveX, float moveY)
+    void CornerCLimbDetection(bool grab, float moveX, float moveY)
     {
-        bool movingLeft     = moveX < 0;
-        bool movingRight    = moveX > 0;
-        bool movingUp       = moveY > 0;
-        bool movingDown     = moveY < 0;
-
-        bool wallLeft;
-        bool wallRight;
-        bool wallTop;
-        bool wallBottom;
-
+        bool movingLeft = moveX < 0;
+        bool movingRight = moveX > 0;
+        bool movingUp = moveY > 0;
+        bool movingDown = moveY < 0;
 
         if (grab)
         {
-            if (!wallLeftTop && wallLeftBottom && movingLeft)
+            if (movingLeft)
             {
-                StartCoroutine(GoAroundCorner(new Vector2(-1, 1)));
+                // corner left bottom
+                if (wallLeftBottom && !wallLeftTop) StartCoroutine(GoAroundCorner(new Vector2Int(-1, 0), new Vector2Int(-1, -1)));
+                // corner left top
+                if (!wallLeftBottom && wallLeftTop) StartCoroutine(GoAroundCorner(new Vector2Int(-1, 0), new Vector2Int(-1, 1)));
+            }
+            if (movingRight)
+            {
+                // if corner right bottom
+                if (wallRightBottom && !wallRightTop) StartCoroutine(GoAroundCorner(new Vector2Int(1, 0), new Vector2Int(1, -1)));
+                // if corner right top
+                if (!wallRightBottom && wallRightTop) StartCoroutine(GoAroundCorner(new Vector2Int(1, 0), new Vector2Int(1, 1)));
+            }
+            if (movingUp)
+            {
+                // corner top left
+                if (wallTopLeft && !wallTopRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, 1), new Vector2Int(-1, 1)));
+                // corner top right
+                if (!wallTopLeft && wallTopRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, 1), new Vector2Int(1, 1)));
+            }
+            if (movingDown)
+            {
+                // corner bottom left
+                if (wallBottomLeft && !wallBottomRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, -1), new Vector2Int(-1, -1)));
+                // corner bottom right
+                if (!wallBottomLeft && wallBottomRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, -1), new Vector2Int(1, -1)));
             }
         }
     }
 
-    IEnumerator GoAroundCorner(Vector2 dir)
+    // Corner direction is from direction from the corner into the corner tile
+    IEnumerator GoAroundCorner(Vector2Int moveDirection, Vector2Int cornerDir)
     {
-        Debug.Log("GOING AROUND THE CORNER");
         ignoreMovement = true;
 
         yield return new WaitForSeconds(0.1f);
 
-        transform.position = new Vector2(transform.position.x + dir.x * 0.5f * coll.size.x, transform.position.y + dir.y * 0.5f * coll.size.y);
+        // find the tile the player is on, the tile the player is moving to and the tile the corner is on
+        Vector2Int playerTile = (Vector2Int)tileGrid.WorldToCell(transform.position);
+        Vector2Int targetTile = new Vector2Int(playerTile.x + moveDirection.x, playerTile.y + moveDirection.y);
+        Vector2Int cornerTile = new Vector2Int(playerTile.x + cornerDir.x, playerTile.y + cornerDir.y);
+
+        // get real world position of target tile (NOTE: tile world positions are bottom left)
+        Vector2 targetTileWorldPos = tileGrid.CellToWorld(new Vector3Int(targetTile.x, targetTile.y, 0));
+        // get direction from target tile to corner tile
+        Vector2Int targetToCornerDirection = cornerTile - targetTile;
+        // get half tile width and half tile height
+        float tileWidthHalf = tileGrid.cellSize.x * 0.5f;
+        float tileHeightHalf = tileGrid.cellSize.y * 0.5f;
+        // get position of the center of the target tile
+        Vector2 targetTileCenter = targetTileWorldPos + new Vector2(tileWidthHalf, tileHeightHalf);
+
+        float newX = targetTileCenter.x - (moveDirection.x * tileWidthHalf) - (targetToCornerDirection.x * (coll.bounds.extents.x - tileWidthHalf));
+        float newY = targetTileCenter.y - (moveDirection.y * tileHeightHalf) - (targetToCornerDirection.y * (coll.bounds.extents.y - tileHeightHalf));
+        Vector2 newPosition = new Vector2(newX, newY);
+
+        transform.position = newPosition;
 
         yield return new WaitForSeconds(0.1f);
 
