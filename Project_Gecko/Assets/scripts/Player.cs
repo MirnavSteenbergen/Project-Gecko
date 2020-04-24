@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
 
         if (controller.collisions.below && jump)
         {
-            velocity.y = jumpStrength;
+            //velocity.y = jumpStrength;
         }
 
         CornerCLimbDetection(grab, hor, ver);
