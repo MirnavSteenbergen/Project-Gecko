@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        lastCheckPointPosition = GameObject.Find("CheckPoint").transform.position;
+
     }
 
     void Update()

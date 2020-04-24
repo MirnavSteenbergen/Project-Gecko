@@ -10,7 +10,7 @@ public class WallDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Solids"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Solids") && collider.gameObject.tag == "Climbable")
         {
             overlappingWall = true;
             wallCollider = collider;
@@ -19,7 +19,7 @@ public class WallDetector : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.layer == LayerMask.NameToLayer("Solids"))
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Solids") && collider.gameObject.tag == "Climbable")
         {
             overlappingWall = false;
             wallCollider = null;
