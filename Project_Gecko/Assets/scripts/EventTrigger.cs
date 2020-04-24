@@ -9,11 +9,9 @@ public class EventTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (collider.GetComponent<Player>() != null)
         {
-            if (collider.GetComponent<Player>() != null)
-            {
-                triggerEvent.Invoke();
-            }
+            triggerEvent.Invoke();
         }
     }
 }
