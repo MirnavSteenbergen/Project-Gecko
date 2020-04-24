@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 8203366587600329024}
   m_Layer: 11
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1141,8 +1141,10 @@ MonoBehaviour:
   wallDetectorTR: {fileID: 481354259}
   wallDetectorBL: {fileID: 2046234475}
   wallDetectorBR: {fileID: 1565605462}
+  powerUpDuration: 10
   tiltAngle: -15
   squishFactor: 0.25
+  velocity: {x: 0, y: 0}
 --- !u!50 &8203366587600329024
 Rigidbody2D:
   serializedVersion: 4
