@@ -21,23 +21,23 @@ public class PlayerScript : MonoBehaviour
        
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Berry"))
-        {
-            other.gameObject.GetComponent<BerryScript>().BerryPickUp(powerupDuration);
-            Movespeed *= MovespeedBoostMultiplier;
-            StartCoroutine( MsDecayRoutine());
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.CompareTag("Berry"))
+    //    {
+    //        other.gameObject.GetComponent<BerryScript>().BerryPickUp(powerupDuration);
+    //        Movespeed *= MovespeedBoostMultiplier;
+    //        StartCoroutine( MsDecayRoutine());
+    //    }
+    //}
 
-    IEnumerator MsDecayRoutine()
-    {
-        float step = 1f / powerupDuration;
-        for (float i = 0f; i < 1f; i += step * Time.deltaTime)
-        {
-            //Player. = Mathf.Lerp(Movespeed, StartMovespeed, i);
-            yield return null;
-        }
-    }
+    //IEnumerator MsDecayRoutine()
+    //{
+    //    float step = 1f / powerupDuration;
+    //    for (float i = 0f; i < 1f; i += step * Time.deltaTime)
+    //    {
+    //        //Player. = Mathf.Lerp(Movespeed, StartMovespeed, i);
+    //        yield return null;
+    //    }
+    //}
 }

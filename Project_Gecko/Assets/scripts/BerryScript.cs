@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BerryScript : MonoBehaviour
 {
+    [SerializeField] private float ReappearDuration = 1.0f;
+
     BoxCollider2D col;
     SpriteRenderer theSprite;
     // Start is called before the first frame update
@@ -19,17 +21,30 @@ public class BerryScript : MonoBehaviour
      
     }
 
-    public void BerryPickUp(float powerupDuration)
-    {
-        col.enabled = false;
-        theSprite.enabled = false;
-        StartCoroutine(RespawnBerry(powerupDuration));
-    }
+    //public void BerryPickUp(float powerupDuration)
+    //{
+    //    col.enabled = false;
+    //    theSprite.enabled = false;
+    //    StartCoroutine(RespawnBerry());
+    //}
 
-    IEnumerator RespawnBerry(float powerupDuration)
+    IEnumerator RespawnBerry()
     {
-        yield return new WaitForSeconds(powerupDuration);
+        yield return new WaitForSeconds(ReappearDuration);
         col.enabled = true;
         theSprite.enabled = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        Player tempPlayer = collider.GetComponent<Player>();
+        if (tempPlayer != null)
+        {
+            tempPlayer.PickUpBerry();
+
+            col.enabled = false;
+            theSprite.enabled = false;
+            StartCoroutine(RespawnBerry());
+        }
     }
 }

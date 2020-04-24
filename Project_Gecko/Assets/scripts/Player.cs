@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     bool wallBottomLeft;
     bool wallBottomRight;
 
+    [Header("Berry")]
+    [SerializeField] private float powerUpDuration = 1.0f;
+
     [Header("Animation")]
     [SerializeField] float tiltAngle = -15;
     [SerializeField] [Range(0f, 1f)] float squishFactor = 0.25f;
@@ -294,5 +297,21 @@ public class Player : MonoBehaviour
     {
         transform.position = lastCheckPointPosition;
         velocity = Vector2.zero;
+    }
+
+    public void PickUpBerry()
+    {
+        maxSpeed = 12;
+        StartCoroutine(MsDecayRoutine());
+    }
+
+    IEnumerator MsDecayRoutine()
+    {
+        float step = 1f / powerUpDuration;
+        for (float i = 0f; i < 1f; i += step * Time.deltaTime)
+        {
+            maxSpeed = Mathf.Lerp(12, 6, i);
+            yield return null;
+        }
     }
 }
