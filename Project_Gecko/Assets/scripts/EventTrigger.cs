@@ -10,8 +10,10 @@ public class EventTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         {
-            Debug.Log("a thing collided");
-            triggerEvent.Invoke();
+            if (collider.GetComponent<Player>() != null)
+            {
+                triggerEvent.Invoke();
+            }
         }
     }
 }

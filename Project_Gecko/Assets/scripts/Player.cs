@@ -38,14 +38,17 @@ public class Player : MonoBehaviour
     [SerializeField] float tiltAngle = -15;
     [SerializeField] [Range(0f, 1f)] float squishFactor = 0.25f;
 
-    private Vector2 velocity;
+    [HideInInspector] public Vector2 velocity;
     private bool grounded; // Only used for animation
     private bool ignoreMovement = false;
+    private bool cannotGrab = false;
 
     private Controller2D controller;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D coll;
+
+    private Vector2 lastCheckPointPosition;
 
     void Awake()
     {
@@ -53,6 +56,11 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
+    }
+
+    private void Start()
+    {
+        lastCheckPointPosition = GameObject.Find("CheckPoint").transform.position;
     }
 
     void Update()
@@ -66,7 +74,7 @@ public class Player : MonoBehaviour
         float hor = Input.GetAxisRaw("Horizontal");
         float ver = Input.GetAxisRaw("Vertical");
         bool jump = Input.GetButtonDown("Jump");
-        bool grab = Input.GetKey(KeyCode.Z);
+        bool grab = cannotGrab == false ? Input.GetKey(KeyCode.Z) : false;
 
         wallLeftTop = wallDetectorLT.overlappingWall;
         wallLeftBottom = wallDetectorLB.overlappingWall;
@@ -262,6 +270,29 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         ignoreMovement = false;
+        velocity = Vector2.zero;
+    }
+
+    public void TacklePlayer(float duration)
+    {
+        StartCoroutine(CannotGrabRoutine(duration));
+    }
+
+    IEnumerator CannotGrabRoutine(float duration)
+    {
+        cannotGrab = true;
+        yield return new WaitForSeconds(duration);
+        cannotGrab = false;
+    }
+
+    public void SetCheckPointPosition(Vector2 pos)
+    {
+        lastCheckPointPosition = pos;
+    }
+
+    public void KillPlayer()
+    {
+        transform.position = lastCheckPointPosition;
         velocity = Vector2.zero;
     }
 }
