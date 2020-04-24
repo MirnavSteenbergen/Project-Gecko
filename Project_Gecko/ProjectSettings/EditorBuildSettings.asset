@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Mainmenu.unity
     guid: fc9370834f819d34da6ed366fa99a81a
   - enabled: 1
+    path: Assets/Scenes/Birdfight.unity
+    guid: f7375d3976ef3c044802ba614717c146
+  - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 12f5e17124946874a99085bd10343a5c
   - enabled: 1
