@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
             {
                 wallClimbing = true;
 
-                // langs verticale muren kun je omhoog of beneden
+                // langs verticale muren kun je naar boven of naar beneden
                 if (wd.wallLeft || wd.wallRight)
                 {
                     velocity.y = ver * maxSpeed;
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
                     if (!wd.wallRightBottom && !wd.wallLeftBottom && velocity.y < 0) velocity.y = 0;
                 }
 
-                // langs horizontale muren kune je naar links of naar rechts
+                // langs horizontale muren kun je naar links of naar rechts
                 if (wd.wallTop || wd.wallBottom)
                 {
                     velocity.x = hor * maxSpeed;
@@ -132,6 +132,12 @@ public class Player : MonoBehaviour
                 // start cooldown zodat we niet meteen weer beginnen te klimmen
                 ReleaseFromWall();
             }
+
+            //if (controller.collisions.below)
+            //{
+            //    wallClimbing = false;
+            //    ReleaseFromWall();
+            //}
         }
 
         // Limit fall speed
@@ -303,7 +309,7 @@ public class Player : MonoBehaviour
     IEnumerator releaseCooldown()
     {
         canGrabWalls = false;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         canGrabWalls = true;
     }
 
