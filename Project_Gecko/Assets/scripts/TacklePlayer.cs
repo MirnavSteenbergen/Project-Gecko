@@ -21,7 +21,7 @@ public class TacklePlayer : MonoBehaviour
         Player player = collider.GetComponent<Player>();
         if (player != null)
         {
-            player.TacklePlayer(1.0f);
+            player.ReleaseFromWall();
         }
     }
 }

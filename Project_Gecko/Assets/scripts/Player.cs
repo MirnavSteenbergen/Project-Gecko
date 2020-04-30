@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Tilemaps;
+using UnityEngine.InputSystem;
 
 // Fixed micro sinking into obstacles for a microsecond by turning on "Auto Sync Transforms" under the Physics and Physics 2D tab in the project settings.
 
 [RequireComponent(typeof(Controller2D))]
+[RequireComponent(typeof(WallDetection))]
 public class Player : MonoBehaviour
 {
     [Header("Movement")]
@@ -17,22 +19,6 @@ public class Player : MonoBehaviour
 
     [Header("Wall Climbing")]
     [SerializeField] private Grid tileGrid;
-    [SerializeField] private WallDetector wallDetectorLT;
-    [SerializeField] private WallDetector wallDetectorLB;
-    [SerializeField] private WallDetector wallDetectorRT;
-    [SerializeField] private WallDetector wallDetectorRB;
-    [SerializeField] private WallDetector wallDetectorTL;
-    [SerializeField] private WallDetector wallDetectorTR;
-    [SerializeField] private WallDetector wallDetectorBL;
-    [SerializeField] private WallDetector wallDetectorBR;
-    bool wallLeftTop;
-    bool wallLeftBottom;
-    bool wallRightTop;
-    bool wallRightBottom;
-    bool wallTopLeft;
-    bool wallTopRight;
-    bool wallBottomLeft;
-    bool wallBottomRight;
 
     [Header("Berry")]
     [SerializeField] private float powerUpDuration = 1.0f;
@@ -44,14 +30,20 @@ public class Player : MonoBehaviour
     [HideInInspector] public Vector2 velocity;
     private bool grounded; // Only used for animation
     private bool ignoreMovement = false;
-    private bool cannotGrab = false;
+    private bool canGrabWalls = true;
 
+    private Vector2 lastCheckPointPosition;
+
+    // Input
+    private Vector2 inputMove;
+    private bool inputLetGo;
+
+    // Components
     private Controller2D controller;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D coll;
-
-    private Vector2 lastCheckPointPosition;
+    private WallDetection wd;
 
     void Awake()
     {
@@ -59,6 +51,7 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
+        wd = GetComponent<WallDetection>();
     }
 
     private void Start()
@@ -74,21 +67,15 @@ public class Player : MonoBehaviour
 
     void MovePlayer()
     {
-        float hor = Input.GetAxisRaw("Horizontal");
-        float ver = Input.GetAxisRaw("Vertical");
-        bool jump = Input.GetButtonDown("Jump");
-        bool grab = cannotGrab == false ? Input.GetKey(KeyCode.Z) : false;
+        float hor = inputMove.x;
+        float ver = inputMove.y;
+        bool letGo = inputLetGo;
 
-        wallLeftTop = wallDetectorLT.overlappingWall;
-        wallLeftBottom = wallDetectorLB.overlappingWall;
-        wallRightTop = wallDetectorRT.overlappingWall;
-        wallRightBottom = wallDetectorRB.overlappingWall;
-        wallTopLeft = wallDetectorTL.overlappingWall;
-        wallTopRight = wallDetectorTR.overlappingWall;
-        wallBottomLeft = wallDetectorBL.overlappingWall;
-        wallBottomRight = wallDetectorBR.overlappingWall;
+        // update alle info voor wall detection
+        wd.UpdateWallInfo();
 
-        // Y movement
+        // check alle corner cases
+        CornerCLimbDetection(hor, ver);
 
         // Stop when hitting collider above or below
         if (controller.collisions.above || controller.collisions.below)
@@ -96,51 +83,60 @@ public class Player : MonoBehaviour
             velocity.y = 0;
         }
 
-        if (controller.collisions.below && jump)
-        {
-            //velocity.y = jumpStrength;
-        }
-
-        CornerCLimbDetection(grab, hor, ver);
-
-        // wall climbing
         bool wallClimbing = false;
-        if (grab)
+
+        if (canGrabWalls)
         {
-            // vertical wall climbing
-            if (wallLeftTop || wallLeftBottom || wallRightTop || wallRightBottom)
+            // als de speler een muur aanraakt wallclimben we
+            if (wd.wallLeft || wd.wallRight || wd.wallTop || wd.wallBottom)
             {
                 wallClimbing = true;
-                velocity.y = ver * maxSpeed;
-            }
-            // horizontal wall climbing
-            if (wallTopLeft || wallTopRight || wallBottomLeft || wallBottomRight)
-            {
-                wallClimbing = true;
-                velocity.x = hor * maxSpeed;
+
+                // langs verticale muren kun je omhoog of beneden
+                if (wd.wallLeft || wd.wallRight)
+                {
+                    velocity.y = ver * maxSpeed;
+
+                    // stop de speler aan een egde boven
+                    if (!wd.wallRightTop && !wd.wallLeftTop && velocity.y > 0) velocity.y = 0;
+                    // stop de speler aan een egde onder
+                    if (!wd.wallRightBottom && !wd.wallLeftBottom && velocity.y < 0) velocity.y = 0;
+                }
+
+                // langs horizontale muren kune je naar links of naar rechts
+                if (wd.wallTop || wd.wallBottom)
+                {
+                    velocity.x = hor * maxSpeed;
+
+                    // stop de speler aan een edge links
+                    if (!wd.wallTopLeft && !wd.wallBottomLeft && velocity.x < 0) velocity.x = 0;
+                    // stop de speler aan een edge rechts
+                    if (!wd.wallTopRight && !wd.wallBottomRight && velocity.x > 0) velocity.x = 0;
+                }
             }
         }
 
-        // Apply gravity
         if (!wallClimbing)
         {
+            // Apply gravity
             velocity.y += gravity * Time.deltaTime;
+
+            // we kunnen in de lucht ook naar links of rechts
+            velocity.x = hor * maxSpeed;
+        }
+        else
+        {
+            // loslaten
+            if (letGo)
+            {
+                wallClimbing = false;
+                // start cooldown zodat we niet meteen weer beginnen te klimmen
+                ReleaseFromWall();
+            }
         }
 
         // Limit fall speed
         velocity.y = Mathf.Min(velocity.y, maxFallSpeed);
-
-        // X movement
-        if (hor != 0 && !wallClimbing)
-        {
-            // Accelerate
-            velocity.x = Mathf.Sign(hor) * Mathf.Min(Mathf.Abs(velocity.x) + (acceleration * Time.deltaTime), maxSpeed);
-        }
-        else
-        {
-            // Decelerate
-            velocity.x = Mathf.Sign(velocity.x) * Mathf.Max(Mathf.Abs(velocity.x) - (deceleration * Time.deltaTime), 0);
-        }
 
         // Pass resulting movement to controller
         controller.Move(velocity * Time.deltaTime);
@@ -202,43 +198,40 @@ public class Player : MonoBehaviour
         }
     }
 
-    void CornerCLimbDetection(bool grab, float moveX, float moveY)
+    void CornerCLimbDetection(float moveX, float moveY)
     {
         bool movingLeft = moveX < 0;
         bool movingRight = moveX > 0;
         bool movingUp = moveY > 0;
         bool movingDown = moveY < 0;
 
-        if (grab)
+        if (movingLeft)
         {
-            if (movingLeft)
-            {
-                // corner left bottom
-                if (wallLeftBottom && !wallLeftTop) StartCoroutine(GoAroundCorner(new Vector2Int(-1, 0), new Vector2Int(-1, -1)));
-                // corner left top
-                if (!wallLeftBottom && wallLeftTop) StartCoroutine(GoAroundCorner(new Vector2Int(-1, 0), new Vector2Int(-1, 1)));
-            }
-            if (movingRight)
-            {
-                // if corner right bottom
-                if (wallRightBottom && !wallRightTop) StartCoroutine(GoAroundCorner(new Vector2Int(1, 0), new Vector2Int(1, -1)));
-                // if corner right top
-                if (!wallRightBottom && wallRightTop) StartCoroutine(GoAroundCorner(new Vector2Int(1, 0), new Vector2Int(1, 1)));
-            }
-            if (movingUp)
-            {
-                // corner top left
-                if (wallTopLeft && !wallTopRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, 1), new Vector2Int(-1, 1)));
-                // corner top right
-                if (!wallTopLeft && wallTopRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, 1), new Vector2Int(1, 1)));
-            }
-            if (movingDown)
-            {
-                // corner bottom left
-                if (wallBottomLeft && !wallBottomRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, -1), new Vector2Int(-1, -1)));
-                // corner bottom right
-                if (!wallBottomLeft && wallBottomRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, -1), new Vector2Int(1, -1)));
-            }
+            // corner left bottom
+            if (wd.wallLeftBottom && !wd.wallLeftTop) StartCoroutine(GoAroundCorner(new Vector2Int(-1, 0), new Vector2Int(-1, -1)));
+            // corner left top
+            if (!wd.wallLeftBottom && wd.wallLeftTop) StartCoroutine(GoAroundCorner(new Vector2Int(-1, 0), new Vector2Int(-1, 1)));
+        }
+        if (movingRight)
+        {
+            // if corner right bottom
+            if (wd.wallRightBottom && !wd.wallRightTop) StartCoroutine(GoAroundCorner(new Vector2Int(1, 0), new Vector2Int(1, -1)));
+            // if corner right top
+            if (!wd.wallRightBottom && wd.wallRightTop) StartCoroutine(GoAroundCorner(new Vector2Int(1, 0), new Vector2Int(1, 1)));
+        }
+        if (movingUp)
+        {
+            // corner top left
+            if (wd.wallTopLeft && !wd.wallTopRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, 1), new Vector2Int(-1, 1)));
+            // corner top right
+            if (!wd.wallTopLeft && wd.wallTopRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, 1), new Vector2Int(1, 1)));
+        }
+        if (movingDown)
+        {
+            // corner bottom left
+            if (wd.wallBottomLeft && !wd.wallBottomRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, -1), new Vector2Int(-1, -1)));
+            // corner bottom right
+            if (!wd.wallBottomLeft && wd.wallBottomRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, -1), new Vector2Int(1, -1)));
         }
     }
 
@@ -275,19 +268,7 @@ public class Player : MonoBehaviour
         ignoreMovement = false;
         velocity = Vector2.zero;
     }
-
-    public void TacklePlayer(float duration)
-    {
-        StartCoroutine(CannotGrabRoutine(duration));
-    }
-
-    IEnumerator CannotGrabRoutine(float duration)
-    {
-        cannotGrab = true;
-        yield return new WaitForSeconds(duration);
-        cannotGrab = false;
-    }
-
+    
     public void SetCheckPointPosition(Vector2 pos)
     {
         lastCheckPointPosition = pos;
@@ -313,5 +294,29 @@ public class Player : MonoBehaviour
             maxSpeed = Mathf.Lerp(12, 6, i);
             yield return null;
         }
+    }
+
+    public void ReleaseFromWall()
+    {
+        StartCoroutine(releaseCooldown());
+    }
+
+    IEnumerator releaseCooldown()
+    {
+        canGrabWalls = false;
+        yield return new WaitForSeconds(0.1f);
+        canGrabWalls = true;
+    }
+
+    // INPUT
+
+    public void InputMove(InputAction.CallbackContext context)
+    {
+        inputMove = context.ReadValue<Vector2>();
+    }
+
+    public void InputLetGo(InputAction.CallbackContext context)
+    {
+        inputLetGo = context.ReadValue<float>() == 1;
     }
 }
