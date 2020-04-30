@@ -7,43 +7,29 @@ public class BerryScript : MonoBehaviour
     [SerializeField] private float ReappearDuration = 1.0f;
 
     BoxCollider2D col;
-    SpriteRenderer theSprite;
-    // Start is called before the first frame update
-    void Start()
+    SpriteRenderer spriteRenderer;
+    
+    void Awake()
     {
         col = GetComponent<BoxCollider2D>();
-        theSprite = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-     
-    }
-
-    //public void BerryPickUp(float powerupDuration)
-    //{
-    //    col.enabled = false;
-    //    theSprite.enabled = false;
-    //    StartCoroutine(RespawnBerry());
-    //}
 
     IEnumerator RespawnBerry()
     {
         yield return new WaitForSeconds(ReappearDuration);
         col.enabled = true;
-        theSprite.enabled = true;
+        spriteRenderer.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Player tempPlayer = collider.GetComponent<Player>();
-        if (tempPlayer != null)
+        if (collider.gameObject.tag == "Player")
         {
-            tempPlayer.PickUpBerry();
+            collider.GetComponent<Player>().PickUpBerry();
 
             col.enabled = false;
-            theSprite.enabled = false;
+            spriteRenderer.enabled = false;
             StartCoroutine(RespawnBerry());
         }
     }

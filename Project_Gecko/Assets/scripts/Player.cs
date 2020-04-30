@@ -11,14 +11,10 @@ public class Player : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] float maxSpeed = 6;
-    [SerializeField] float acceleration = 45;
-    [SerializeField] float deceleration = 45;
-    [SerializeField] float jumpStrength = 12;
+    //[SerializeField] float acceleration = 45;
+    //[SerializeField] float deceleration = 45;
     [SerializeField] float gravity = -36;
     [SerializeField] float maxFallSpeed = 30;
-
-    [Header("Wall Climbing")]
-    [SerializeField] private Grid tileGrid;
 
     [Header("Berry")]
     [SerializeField] private float powerUpDuration = 1.0f;
@@ -27,6 +23,7 @@ public class Player : MonoBehaviour
     [SerializeField] float tiltAngle = -15;
     [SerializeField] [Range(0f, 1f)] float squishFactor = 0.25f;
 
+    // private variables
     [HideInInspector] public Vector2 velocity;
     private bool grounded; // Only used for animation
     private bool ignoreMovement = false;
@@ -44,6 +41,7 @@ public class Player : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D coll;
     private WallDetection wd;
+    private Grid tileGrid;
 
     void Awake()
     {
@@ -52,6 +50,7 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         coll = GetComponent<BoxCollider2D>();
         wd = GetComponent<WallDetection>();
+        tileGrid = GameObject.FindGameObjectWithTag("Tile Grid").GetComponent<Grid>();
     }
 
     private void Start()

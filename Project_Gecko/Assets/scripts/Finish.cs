@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPoint : MonoBehaviour
+public class Finish : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -16,11 +16,11 @@ public class CheckPoint : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collider.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            collider.GetComponent<Player>().SetCheckPointPosition(transform.position);
+            GameManager.Instance.EndGame();
         }
     }
 }
