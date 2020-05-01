@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class WallDetection : MonoBehaviour
 {
     BoxCollider2D coll;
+    private Grid tileGrid;
 
     public LayerMask wallMask;
 
@@ -14,31 +16,37 @@ public class WallDetection : MonoBehaviour
     float verRaySpacing;
     float horRaySpacing;
 
-    [HideInInspector] public bool wallLeftTop;
-    [HideInInspector] public bool wallLeftBottom;
-    [HideInInspector] public bool wallRightTop;
-    [HideInInspector] public bool wallRightBottom;
-    [HideInInspector] public bool wallTopLeft;
-    [HideInInspector] public bool wallTopRight;
-    [HideInInspector] public bool wallBottomLeft;
-    [HideInInspector] public bool wallBottomRight;
+    public bool wallLeftTop;
+    public bool wallLeftBottom;
+    public bool wallRightTop;
+    public bool wallRightBottom;
+    public bool wallTopLeft;
+    public bool wallTopRight;
+    public bool wallBottomLeft;
+    public bool wallBottomRight;
 
-    [HideInInspector] public bool wallTop;
-    [HideInInspector] public bool wallBottom;
-    [HideInInspector] public bool wallLeft;
-    [HideInInspector] public bool wallRight;
+    public bool wallTop;
+    public bool wallBottom;
+    public bool wallLeft;
+    public bool wallRight;
 
     //public WallInfo walls;
     
     private void Awake()
     {
         coll = GetComponent<BoxCollider2D>();
+        tileGrid = GameObject.FindGameObjectWithTag("Tile Grid").GetComponent<Grid>();
     }
 
     private void Start()
     {
         // on start, set the appropiate rayspacing for the collider size
         UpdateRaySpacing();
+    }
+
+    private void Update()
+    {
+
     }
 
     public void UpdateWallInfo()
@@ -72,7 +80,7 @@ public class WallDetection : MonoBehaviour
             rayOrigin += rayTranslateDirecrion * i * (rayTranslateDirecrion.x == 0 ? verRaySpacing : horRaySpacing);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, wallCheckDistance, wallMask);
 
-            Debug.DrawRay(rayOrigin, rayDirection * wallCheckDistance, Color.cyan);
+            //Debug.DrawRay(rayOrigin, rayDirection * wallCheckDistance, Color.cyan);
 
             if (hit)
             {

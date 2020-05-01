@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
     private BoxCollider2D coll;
     private WallDetection wd;
     private Grid tileGrid;
+    private CornerDetection cd;
 
     void Awake()
     {
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         wd = GetComponent<WallDetection>();
         tileGrid = GameObject.FindGameObjectWithTag("Tile Grid").GetComponent<Grid>();
+        cd = GetComponent<CornerDetection>();
     }
 
     private void Start()
@@ -74,7 +76,8 @@ public class Player : MonoBehaviour
         wd.UpdateWallInfo();
 
         // check alle corner cases
-        CornerCLimbDetection(hor, ver);
+        cd.CheckForCorner(new Vector2(hor, 0));
+        cd.CheckForCorner(new Vector2(0, ver));
 
         // Stop when hitting collider above or below
         if (controller.collisions.above || controller.collisions.below)
@@ -203,70 +206,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    void CornerCLimbDetection(float moveX, float moveY)
+    public void GoAroundCorner(Vector2 cornerPos, Vector2 translateDirection)
     {
-        bool movingLeft = moveX < 0;
-        bool movingRight = moveX > 0;
-        bool movingUp = moveY > 0;
-        bool movingDown = moveY < 0;
-
-        if (movingLeft)
-        {
-            // corner left bottom
-            if (wd.wallLeftBottom && !wd.wallLeftTop) StartCoroutine(GoAroundCorner(new Vector2Int(-1, 0), new Vector2Int(-1, -1)));
-            // corner left top
-            if (!wd.wallLeftBottom && wd.wallLeftTop) StartCoroutine(GoAroundCorner(new Vector2Int(-1, 0), new Vector2Int(-1, 1)));
-        }
-        if (movingRight)
-        {
-            // if corner right bottom
-            if (wd.wallRightBottom && !wd.wallRightTop) StartCoroutine(GoAroundCorner(new Vector2Int(1, 0), new Vector2Int(1, -1)));
-            // if corner right top
-            if (!wd.wallRightBottom && wd.wallRightTop) StartCoroutine(GoAroundCorner(new Vector2Int(1, 0), new Vector2Int(1, 1)));
-        }
-        if (movingUp)
-        {
-            // corner top left
-            if (wd.wallTopLeft && !wd.wallTopRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, 1), new Vector2Int(-1, 1)));
-            // corner top right
-            if (!wd.wallTopLeft && wd.wallTopRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, 1), new Vector2Int(1, 1)));
-        }
-        if (movingDown)
-        {
-            // corner bottom left
-            if (wd.wallBottomLeft && !wd.wallBottomRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, -1), new Vector2Int(-1, -1)));
-            // corner bottom right
-            if (!wd.wallBottomLeft && wd.wallBottomRight) StartCoroutine(GoAroundCorner(new Vector2Int(0, -1), new Vector2Int(1, -1)));
-        }
+        StartCoroutine(GoAroundCornerRoutine(cornerPos, translateDirection));
     }
 
-    // Corner direction is from direction from the corner into the corner tile
-    IEnumerator GoAroundCorner(Vector2Int moveDirection, Vector2Int cornerDir)
+    IEnumerator GoAroundCornerRoutine(Vector2 cornerPos, Vector2 translateDirection)
     {
         ignoreMovement = true;
 
         yield return new WaitForSeconds(0.1f);
 
-        // find the tile the player is on, the tile the player is moving to and the tile the corner is on
-        Vector2Int playerTile = (Vector2Int)tileGrid.WorldToCell(transform.position);
-        Vector2Int targetTile = new Vector2Int(playerTile.x + moveDirection.x, playerTile.y + moveDirection.y);
-        Vector2Int cornerTile = new Vector2Int(playerTile.x + cornerDir.x, playerTile.y + cornerDir.y);
-
-        // get real world position of target tile (NOTE: tile world positions are bottom left)
-        Vector2 targetTileWorldPos = tileGrid.CellToWorld(new Vector3Int(targetTile.x, targetTile.y, 0));
-        // get direction from target tile to corner tile
-        Vector2Int targetToCornerDirection = cornerTile - targetTile;
-        // get half tile width and half tile height
-        float tileWidthHalf = tileGrid.cellSize.x * 0.5f;
-        float tileHeightHalf = tileGrid.cellSize.y * 0.5f;
-        // get position of the center of the target tile
-        Vector2 targetTileCenter = targetTileWorldPos + new Vector2(tileWidthHalf, tileHeightHalf);
-
-        float newX = targetTileCenter.x - (moveDirection.x * tileWidthHalf) - (targetToCornerDirection.x * (coll.bounds.extents.x - tileWidthHalf));
-        float newY = targetTileCenter.y - (moveDirection.y * tileHeightHalf) - (targetToCornerDirection.y * (coll.bounds.extents.y - tileHeightHalf));
-        Vector2 newPosition = new Vector2(newX, newY);
-
-        transform.position = newPosition;
+        coll.transform.position = cornerPos + translateDirection * coll.bounds.extents;
 
         yield return new WaitForSeconds(0.1f);
 
@@ -322,6 +273,7 @@ public class Player : MonoBehaviour
 
     public void InputLetGo(InputAction.CallbackContext context)
     {
-        inputLetGo = context.ReadValue<float>() == 1;
+        if (context.started) inputLetGo = true;
+        if (context.canceled) inputLetGo = false;
     }
 }
