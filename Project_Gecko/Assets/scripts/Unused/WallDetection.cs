@@ -82,7 +82,7 @@ public class WallDetection : MonoBehaviour
 
             //Debug.DrawRay(rayOrigin, rayDirection * wallCheckDistance, Color.cyan);
 
-            if (hit)
+            if (hit && hit.collider.gameObject.tag == "Climbable")
             {
                 wallDetected = true;
             }

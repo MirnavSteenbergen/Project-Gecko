@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8203366587600329025}
   - component: {fileID: 8203366587600329028}
   - component: {fileID: 8203366587600329027}
-  - component: {fileID: 4505012437437992667}
   - component: {fileID: 8203366587600329024}
   - component: {fileID: 8203366587600329026}
   - component: {fileID: 1316798823}
@@ -52,6 +51,16 @@ MonoBehaviour:
   maxSpeed: 6
   gravity: -36
   maxFallSpeed: 30
+  wallCheckDistance: 0.1
+  edgeOverhangAllowance: 0.5
+  edgeOverhangThreshold: 0.5
+  climbableWallMask:
+    serializedVersion: 2
+    m_Bits: 65536
+  UnclimbableWallMask:
+    serializedVersion: 2
+    m_Bits: 131072
+  skinWidth: 0.015
   powerUpDuration: 10
   tiltAngle: -15
   squishFactor: 0.25
@@ -70,38 +79,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 32768
+    m_Bits: 229376
   horizontalRayCount: 4
   verticalRayCount: 4
---- !u!114 &4505012437437992667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8203366587600329029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53ccef1089945c145b074c72eb7a7933, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wallMask:
-    serializedVersion: 2
-    m_Bits: 32768
-  wallCheckDistance: 0.1
-  skinWidth: 0.015
-  wallLeftTop: 0
-  wallLeftBottom: 0
-  wallRightTop: 0
-  wallRightBottom: 0
-  wallTopLeft: 0
-  wallTopRight: 0
-  wallBottomLeft: 0
-  wallBottomRight: 0
-  wallTop: 0
-  wallBottom: 0
-  wallLeft: 0
-  wallRight: 0
 --- !u!50 &8203366587600329024
 Rigidbody2D:
   serializedVersion: 4
