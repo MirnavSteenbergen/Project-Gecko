@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
 
     [Header("Wall Climbing")]
     [SerializeField] private float wallCheckDistance = 0.1f;
-    [SerializeField] private float edgeOverhangAllowance = 0.5f;
-    [SerializeField] private float edgeOverhangThreshold = 0.5f;
+    [SerializeField] [Range(0.0f, 1.0f)] private float edgeOverhangAllowance = 0.5f;
+    [SerializeField] [Range(0.0f, 1.0f)] private float edgeOverhangThreshold = 0.5f;
     [SerializeField] public LayerMask climbableWallMask;
     [SerializeField] public LayerMask UnclimbableWallMask;
     [SerializeField] private float skinWidth = 0.015f;
@@ -232,7 +232,7 @@ public class Player : MonoBehaviour
 
         coll.transform.position = cornerPos + translateDirection * coll.bounds.extents;
 
-        yield return new WaitForSeconds(0.0f);
+        yield return new WaitForSeconds(0.2f);
 
         ignoreMovement = false;
         velocity = Vector2.zero;
