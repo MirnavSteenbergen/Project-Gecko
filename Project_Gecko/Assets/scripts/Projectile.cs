@@ -7,6 +7,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float defaultSpeed = 1f;
+    [SerializeField] public LayerMask environmentMask;
 
     Rigidbody2D rb;
 
@@ -33,15 +34,11 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Solids"))
-        {
-            Destroy(gameObject);
-        }
-        
         if (collision.collider.tag == "Player")
         {
             collision.collider.GetComponent<Player>().KillPlayer();
-            Destroy(gameObject);
         }
+
+        Destroy(gameObject);
     }
 }

@@ -39,8 +39,8 @@ public class Player : MonoBehaviour
     private Vector2 lastCheckPointPosition;
 
     // Input
-    private Vector2 inputMove;
-    private bool inputLetGo;
+    [HideInInspector] public Vector2 inputMove;
+    [HideInInspector] public bool inputLetGo;
 
     // Components
     private Controller2D controller;
