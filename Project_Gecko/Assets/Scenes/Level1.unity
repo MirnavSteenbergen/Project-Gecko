@@ -825,6 +825,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovingPlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 3300573677282742880, guid: 7d8a32182d400e043acaa0600daaf94a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 3300573677282742883, guid: 7d8a32182d400e043acaa0600daaf94a,
         type: 3}
       propertyPath: localOtherPosition.x
@@ -4146,7 +4151,7 @@ GameObject:
   - component: {fileID: 5596194079870168451}
   - component: {fileID: 1086427508}
   - component: {fileID: 1086427510}
-  m_Layer: 15
+  m_Layer: 17
   m_Name: Unclimbable Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4167,9 +4172,9 @@ GameObject:
   - component: {fileID: 5596194079971637290}
   - component: {fileID: 1038402700644399597}
   - component: {fileID: 2310733499701020578}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Ground
-  m_TagString: Climbable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
