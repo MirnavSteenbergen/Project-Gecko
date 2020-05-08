@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
+    public Transform respawnPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,13 @@ public class CheckPoint : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            collider.GetComponent<Player>().SetCheckPointPosition(transform.position);
+            collider.GetComponent<Player>().SetCheckPointPosition(respawnPos.position);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(respawnPos.position, 0.5f);
     }
 }
