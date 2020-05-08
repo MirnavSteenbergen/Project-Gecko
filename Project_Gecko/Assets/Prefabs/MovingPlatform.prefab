@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3300573677282742882}
   - component: {fileID: 3300573677282742887}
   - component: {fileID: 3300573677282742883}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: MovingPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ede50dae2fd88d4f917ac29fab57a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDuration: 1
+  moveSpeed: 1
   localOtherPosition: {x: 4, y: 0}

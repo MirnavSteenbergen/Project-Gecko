@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4337137489380589996}
   - component: {fileID: 4337137489380589997}
   - component: {fileID: 4337137489380589998}
+  - component: {fileID: 6692569823966895078}
   m_Layer: 0
   m_Name: Moving Enemy
   m_TagString: Untagged
@@ -154,3 +155,15 @@ MonoBehaviour:
     m_Bits: 131072
   skinWidth: 0.015
   velocity: {x: 0, y: 0}
+--- !u!114 &6692569823966895078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4337137489380589999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df086a4b975e0f4395294f838fc84c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
