@@ -6,6 +6,7 @@ public class PlayerTouchControls : MonoBehaviour
 {
     public FixedJoystick joystick;
     private Player player;
+    public bool useTouchControls = false;
 
     private void Awake()
     {
@@ -21,14 +22,17 @@ public class PlayerTouchControls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float hor = joystick.Horizontal;
-        float ver = joystick.Vertical;
-        if (hor > 0) hor = 1;
-        if (hor < 0) hor = -1;
-        if (ver > 0) ver = 1;
-        if (ver < 0) ver = -1;
+        if (useTouchControls)
+        {
+            float hor = joystick.Horizontal;
+            float ver = joystick.Vertical;
+            if (hor > 0) hor = 1;
+            if (hor < 0) hor = -1;
+            if (ver > 0) ver = 1;
+            if (ver < 0) ver = -1;
 
-        player.inputMove = new Vector2(hor, ver);
+            player.inputMove = new Vector2(hor, ver);
+        }
     }
 
     public void LetGoButtunDown()
