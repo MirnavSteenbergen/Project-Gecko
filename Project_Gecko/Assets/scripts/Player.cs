@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!ignoreMovement) MovePlayer();
+        MovePlayer();
         //AnimatePlayer();
     }
 
@@ -160,7 +160,30 @@ public class Player : MonoBehaviour
         }
 
         // Pass resulting movement to controller
-        controller.Move(velocity * Time.deltaTime);
+        if (!ignoreMovement)
+        {
+            controller.Move(velocity * Time.deltaTime);
+        }
+
+        // ANIMATION
+
+        if (hasWallRight) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 90);
+        if (hasWallLeft) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, -90);
+        if (hasWallAbove) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 180);
+        if (hasWallBelow) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        //below
+        if (hasWallBelow && hor < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        if (hasWallBelow && hor > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        //above
+        if (hasWallAbove && hor < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        if (hasWallAbove && hor > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        //left
+        if (hasWallLeft && ver > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        if (hasWallLeft && ver < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        //right
+        if (hasWallRight && ver > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        if (hasWallRight && ver < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
     }
 
     void AnimatePlayer()
