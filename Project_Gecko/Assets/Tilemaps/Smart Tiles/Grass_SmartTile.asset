@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Grass_SmartTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: bb2cadeba46c75f4799ff3cbc6868872, type: 3}
+  m_DefaultSprite: {fileID: 3410488534764033649, guid: f63dffeb7b00af041bec9e342327e96c,
+    type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 21300000, guid: bb2cadeba46c75f4799ff3cbc6868872, type: 3}
+    - {fileID: 3410488534764033649, guid: f63dffeb7b00af041bec9e342327e96c, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -34,7 +35,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 1
     m_Sprites:
-    - {fileID: 21300000, guid: 88c6ca19a7ea6aa438e5138d2c9bd4fe, type: 3}
+    - {fileID: 1039249647825052892, guid: f63dffeb7b00af041bec9e342327e96c, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -50,7 +51,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 2
     m_Sprites:
-    - {fileID: 21300000, guid: 63a7bffe867c138488fa0bc80c700fc5, type: 3}
+    - {fileID: 2016515617886503646, guid: f63dffeb7b00af041bec9e342327e96c, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -66,7 +67,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 4
     m_Sprites:
-    - {fileID: 21300000, guid: e37baa94c5fd1bf42ba9fc1c274ea452, type: 3}
+    - {fileID: -6698422011910543261, guid: f63dffeb7b00af041bec9e342327e96c, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -82,7 +83,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 3
     m_Sprites:
-    - {fileID: 21300000, guid: 0b52a7b631de9ff458b5f92684f782a1, type: 3}
+    - {fileID: 7010918312912571474, guid: f63dffeb7b00af041bec9e342327e96c, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -98,7 +99,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 5
     m_Sprites:
-    - {fileID: 21300000, guid: 8a4e544720700f04b88117f130f291fa, type: 3}
+    - {fileID: 8127430671101962805, guid: f63dffeb7b00af041bec9e342327e96c, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5

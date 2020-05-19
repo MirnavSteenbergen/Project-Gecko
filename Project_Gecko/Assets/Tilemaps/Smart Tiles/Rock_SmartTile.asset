@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Rock_SmartTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: ff15cf51ee5f87348af21ac0314ce932, type: 3}
+  m_DefaultSprite: {fileID: 7408652870583026908, guid: 0c351fbddf58ee2448147e7b00e2c17a,
+    type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 21300000, guid: ff15cf51ee5f87348af21ac0314ce932, type: 3}
+    - {fileID: 7408652870583026908, guid: 0c351fbddf58ee2448147e7b00e2c17a, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -34,7 +35,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 1
     m_Sprites:
-    - {fileID: 21300000, guid: eb901d02c7f462a4cb00bec42ae7a9da, type: 3}
+    - {fileID: 5422315414165540637, guid: 0c351fbddf58ee2448147e7b00e2c17a, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -50,7 +51,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 2
     m_Sprites:
-    - {fileID: 21300000, guid: 22e3de2f4382bb246a49e07e47941d8f, type: 3}
+    - {fileID: -949719516404791829, guid: 0c351fbddf58ee2448147e7b00e2c17a, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -66,7 +67,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 3
     m_Sprites:
-    - {fileID: 21300000, guid: b585271bc64015a4594979c2bab7820a, type: 3}
+    - {fileID: 116584099202810830, guid: 0c351fbddf58ee2448147e7b00e2c17a, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -82,7 +83,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 4
     m_Sprites:
-    - {fileID: 21300000, guid: eda9d603b9f2b1647b332cfeaa30d004, type: 3}
+    - {fileID: 9122861637206598984, guid: 0c351fbddf58ee2448147e7b00e2c17a, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -98,7 +99,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 5
     m_Sprites:
-    - {fileID: 21300000, guid: 4e03ec1dd223da54eba3ec8d0aead000, type: 3}
+    - {fileID: 7883217179962333431, guid: 0c351fbddf58ee2448147e7b00e2c17a, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
