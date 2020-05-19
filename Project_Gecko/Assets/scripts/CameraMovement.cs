@@ -6,7 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
     private Camera cam;
     private BoxCollider2D roomColl;
-    public Vector2 aspectRatio = new Vector2(16, 9);
+    //public Vector2 aspectRatio = new Vector2(16, 9);
     public Vector2 roomSize;
 
     private void Awake()
@@ -14,8 +14,8 @@ public class CameraMovement : MonoBehaviour
         cam = GetComponent<Camera>();
         roomColl = GetComponent<BoxCollider2D>();
 
-        roomColl.size = new Vector2(cam.orthographicSize * 2 / aspectRatio.y * aspectRatio.x, cam.orthographicSize * 2);
-        roomSize = new Vector2(Mathf.Ceil(roomColl.size.x), Mathf.Ceil(roomColl.size.y));
+        cam.orthographicSize = roomSize.y * 0.5f;
+        roomColl.size = new Vector2(roomSize.x, roomSize.y);
     }
 
     // Start is called before the first frame update

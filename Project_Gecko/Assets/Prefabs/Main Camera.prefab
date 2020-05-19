@@ -97,8 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0990754fd9322cf4faef0ef776c9a4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aspectRatio: {x: 16, y: 9}
-  roomSize: {x: 0, y: 0}
+  roomSize: {x: 24, y: 14}
 --- !u!61 &2633505369612990350
 BoxCollider2D:
   m_ObjectHideFlags: 0
