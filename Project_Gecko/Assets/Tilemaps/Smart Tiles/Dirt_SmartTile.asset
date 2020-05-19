@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Dirt_SmartTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 858ba5aed031dc148b9e47b0516a9ed3, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: 78de78087eca5b9479fa7b75b8287657, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 21300000, guid: 858ba5aed031dc148b9e47b0516a9ed3, type: 3}
+    - {fileID: 21300000, guid: 78de78087eca5b9479fa7b75b8287657, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -34,7 +34,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 1
     m_Sprites:
-    - {fileID: 21300000, guid: b2e15e65d9ca0ec429b0a737971c785b, type: 3}
+    - {fileID: 21300000, guid: eac5753d3dd26a0489e87a569d793e5d, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -50,7 +50,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 2
     m_Sprites:
-    - {fileID: 21300000, guid: c2593513a3147854d8495027844dfedc, type: 3}
+    - {fileID: 21300000, guid: 46597cbcb240c494badf7a6a946885b9, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -66,7 +66,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 4
     m_Sprites:
-    - {fileID: 21300000, guid: 0c3b571a0e6866c46b0cca9886357501, type: 3}
+    - {fileID: 21300000, guid: c861b8bee06e6454c80344b88b7bdf14, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -82,7 +82,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 3
     m_Sprites:
-    - {fileID: 21300000, guid: 28a0cf8d496257e47b6ae4407a5347b0, type: 3}
+    - {fileID: 21300000, guid: 0f7250dd0633ef9489687d6b44cf3be5, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -98,7 +98,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 5
     m_Sprites:
-    - {fileID: 21300000, guid: 246709c79707a214ba66b2984c5e92ff, type: 3}
+    - {fileID: 21300000, guid: 5120e42d0789fe8429f691fe6cf156d1, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5

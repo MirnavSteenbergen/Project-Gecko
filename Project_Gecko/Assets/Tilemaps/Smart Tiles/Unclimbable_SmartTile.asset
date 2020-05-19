@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Unclimbable_SmartTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: 5f016a832e6fc8a4b890a1ff11011363, type: 3}
+  m_DefaultSprite: {fileID: 21300000, guid: 6a6b9db5bc695ef43ba825de2ff03986, type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 21300000, guid: 5f016a832e6fc8a4b890a1ff11011363, type: 3}
+    - {fileID: 21300000, guid: 6a6b9db5bc695ef43ba825de2ff03986, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -34,7 +34,7 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 1
     m_Sprites:
-    - {fileID: 21300000, guid: c1c41452fa51cc84dbb84e5edaa93787, type: 3}
+    - {fileID: 21300000, guid: 3db7f6dd30facc740b119494fca28919, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -50,7 +50,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 2
     m_Sprites:
-    - {fileID: 21300000, guid: a5e5faaa4fbdf234fbdf71b3805e6db8, type: 3}
+    - {fileID: 21300000, guid: d233f06183f251044bd75e46f8ecb0d0, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -66,7 +66,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 3
     m_Sprites:
-    - {fileID: 21300000, guid: 18fde89a225d13f4694bb9c1a5910a19, type: 3}
+    - {fileID: 21300000, guid: d7a78d5609d12d64aada724ca4acda48, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -82,7 +82,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 4
     m_Sprites:
-    - {fileID: 21300000, guid: c17b51c96f7d6884aab1def036c578ae, type: 3}
+    - {fileID: 21300000, guid: 0e3f1fdc10687b7459d837286f566351, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -98,7 +98,7 @@ MonoBehaviour:
     m_RuleTransform: 1
   - m_Id: 5
     m_Sprites:
-    - {fileID: 21300000, guid: 6a289606d9ddf124b9823ef4ced0c94a, type: 3}
+    - {fileID: 21300000, guid: 2365380e9b449644695438e7083f3ee9, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
