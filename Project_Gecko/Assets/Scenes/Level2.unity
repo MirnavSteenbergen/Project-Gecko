@@ -276,7 +276,7 @@ PrefabInstance:
     - target: {fileID: 8737690086940091211, guid: 0b2283e73ce94cb45be1768b29a289a5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.81638944
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 8737690086940091211, guid: 0b2283e73ce94cb45be1768b29a289a5,
         type: 3}
@@ -1265,6 +1265,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8737690086940091211, guid: 0b2283e73ce94cb45be1768b29a289a5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8737690086940091211, guid: 0b2283e73ce94cb45be1768b29a289a5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8737690086940091223, guid: 0b2283e73ce94cb45be1768b29a289a5,
         type: 3}
@@ -8240,6 +8250,15 @@ Tilemap:
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
+  - first: {x: -30, y: -12, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 3
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
   - first: {x: -12, y: -12, z: 0}
     second:
       serializedVersion: 2
@@ -8304,6 +8323,15 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
   - first: {x: 2, y: -12, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 3
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: -30, y: -11, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 1
@@ -8393,6 +8421,15 @@ Tilemap:
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
+  - first: {x: -30, y: -10, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 3
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
   - first: {x: -12, y: -10, z: 0}
     second:
       serializedVersion: 2
@@ -8466,6 +8503,24 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
   - first: {x: 1, y: -10, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 3
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: -31, y: -9, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 3
+      m_TileColorIndex: 1
+      m_TileObjectToInstantiateIndex: 65535
+      m_AllTileFlags: 1073741825
+  - first: {x: -30, y: -9, z: 0}
     second:
       serializedVersion: 2
       m_TileIndex: 1
@@ -8640,7 +8695,7 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 84
+  - m_RefCount: 89
     m_Data: {fileID: 11400000, guid: c698ae878e1d9f24bb902db3ae5665e9, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -8651,7 +8706,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 84
+  - m_RefCount: 89
     m_Data: {fileID: 21300000, guid: 4780a0eebdb8c134aba519f0931383a8, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -8710,7 +8765,7 @@ Tilemap:
       e31: 0
       e32: 0
       e33: 5.11e-43
-  - m_RefCount: 84
+  - m_RefCount: 89
     m_Data:
       e00: 1
       e01: 0
@@ -8731,7 +8786,7 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 0, g: 0, b: 0, a: 0}
-  - m_RefCount: 84
+  - m_RefCount: 89
     m_Data: {r: 0.4528302, g: 0.26593095, b: 0.20719118, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
