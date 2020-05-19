@@ -64,6 +64,8 @@ MonoBehaviour:
   powerUpDuration: 10
   tiltAngle: -15
   squishFactor: 0.25
+  idleSprite: {fileID: 21300000, guid: c1181c4944815014d93992c7035d458b, type: 3}
+  cornerSprite: {fileID: 21300000, guid: 0a0c082f65bf5f34492e6617b801e19c, type: 3}
   velocity: {x: 0, y: 0}
   inputMove: {x: 0, y: 0}
   inputLetGo: 0

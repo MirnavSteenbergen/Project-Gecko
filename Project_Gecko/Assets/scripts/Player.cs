@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     [Header("Animation")]
     [SerializeField] float tiltAngle = -15;
     [SerializeField] [Range(0f, 1f)] float squishFactor = 0.25f;
+    [SerializeField] private Sprite idleSprite;
+    [SerializeField] private Sprite cornerSprite;
 
     // private variables
     [HideInInspector] public Vector2 velocity;
@@ -250,8 +252,9 @@ public class Player : MonoBehaviour
     IEnumerator GoAroundCornerRoutine(Vector2 cornerPos, Vector2 translateDirection)
     {
         ignoreMovement = true;
+        //spriteRenderer.sprite = cornerSprite;
 
-        //yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.2f);
 
         coll.transform.position = cornerPos + translateDirection * coll.bounds.extents;
 
@@ -259,6 +262,7 @@ public class Player : MonoBehaviour
 
         ignoreMovement = false;
         velocity = Vector2.zero;
+        //spriteRenderer.sprite = idleSprite;
     }
     
     public void SetCheckPointPosition(Vector2 pos)
