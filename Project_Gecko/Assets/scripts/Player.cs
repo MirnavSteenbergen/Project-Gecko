@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite cornerSprite;
 
     // private variables
-    [HideInInspector] public Vector2 velocity;
+    public Vector2 velocity;
     private bool grounded; // Only used for animation
     private bool ignoreMovement = false;
     private bool canGrabWalls = true;
@@ -131,16 +131,15 @@ public class Player : MonoBehaviour
                 if (hasWallBelow && ver < 0) CheckForCorner(Vector2.down);
             }
         }
-        
+
+        // Stop when hitting collider above or below
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
 
         if (!wallClimbing)
         {
-            // Stop when hitting collider above or below
-            if (controller.collisions.above || controller.collisions.below)
-            {
-                velocity.y = 0;
-            }
-
             // Apply gravity
             velocity.y += gravity * Time.deltaTime;
 
@@ -244,6 +243,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    void AnimatePlayer2()
+    {
+
+    }
+
     public void GoAroundCorner(Vector2 cornerPos, Vector2 translateDirection)
     {
         StartCoroutine(GoAroundCornerRoutine(cornerPos, translateDirection));
@@ -254,7 +258,7 @@ public class Player : MonoBehaviour
         ignoreMovement = true;
         //spriteRenderer.sprite = cornerSprite;
 
-        //yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.4f);
 
         coll.transform.position = cornerPos + translateDirection * coll.bounds.extents;
 
