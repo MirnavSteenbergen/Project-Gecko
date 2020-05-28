@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class EnemyShooter : MonoBehaviour
 {
+    public Transform firePoint;
     public Projectile projectile;
 
     [SerializeField] private float shootAngle = 0f;
     [SerializeField] private float shootAngleTurnAmount = 0f;
     [SerializeField] private float shootTimeOutDuration = 1f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +26,7 @@ public class EnemyShooter : MonoBehaviour
 
     void ShootProjectile(float angle)
     {
-        Instantiate(projectile, transform.position, Quaternion.Euler(0, 0, angle));
+        Instantiate(projectile, firePoint.position, Quaternion.Euler(0, 0, angle));
 
         shootAngle += shootAngleTurnAmount;
         StartCoroutine(ShootTimeOut(shootTimeOutDuration));

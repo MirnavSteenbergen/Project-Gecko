@@ -16,7 +16,7 @@ public class TacklePlayer : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnTriggerStay2D(Collider2D collider)
     {
         Player player = collider.GetComponent<Player>();
         if (player != null)

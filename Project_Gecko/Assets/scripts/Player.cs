@@ -53,6 +53,9 @@ public class Player : MonoBehaviour
     private Grid tileGrid;
     private CornerDetection cd;
 
+    //sounds
+    public AudioSource deathSound;
+
     void Awake()
     {
         controller = GetComponent<Controller2D>();
@@ -66,7 +69,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-
+        deathSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -276,6 +279,7 @@ public class Player : MonoBehaviour
 
     public void KillPlayer()
     {
+        deathSound.Play();
         transform.position = lastCheckPointPosition;
         velocity = Vector2.zero;
     }
