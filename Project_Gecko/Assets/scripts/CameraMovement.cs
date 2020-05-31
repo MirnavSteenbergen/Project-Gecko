@@ -50,7 +50,7 @@ public class CameraMovement : MonoBehaviour
             if (collider.transform.position.y > roomColl.bounds.max.y) dirY += 1;
             if (collider.transform.position.y < roomColl.bounds.min.y) dirY -= 1;
 
-            transform.position += new Vector3(dirX * collider.bounds.size.x, dirY * collider.bounds.size.y);
+            transform.position += new Vector3(dirX * roomColl.bounds.size.x, dirY * roomColl.bounds.size.y);
         }
     }
 }
