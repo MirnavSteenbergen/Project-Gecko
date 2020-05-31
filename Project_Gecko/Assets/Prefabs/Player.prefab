@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8203366587600329026}
   - component: {fileID: 1316798823}
   - component: {fileID: 1489430922859853029}
+  - component: {fileID: 225174839}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -70,6 +71,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0}
   inputMove: {x: 0, y: 0}
   inputLetGo: 0
+  deathSound: {fileID: 0}
 --- !u!114 &8203366587600329027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,12 +210,12 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 8d090e60039b37949b5a8a0379654050, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.3
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 80
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -291,6 +293,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &225174839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8203366587600329029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e9bb11e18af9d439b50f78b8020e54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 0}
+  useTouchControls: 0
 --- !u!1 &8203366588446453536
 GameObject:
   m_ObjectHideFlags: 0
