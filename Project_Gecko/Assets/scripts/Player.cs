@@ -37,8 +37,11 @@ public class Player : MonoBehaviour
     private bool grounded; // Only used for animation
     private bool ignoreMovement = false;
     private bool canGrabWalls = true;
-
     private Vector2 lastCheckPointPosition;
+    bool hasWallLeft;
+    bool hasWallRight;
+    bool hasWallAbove;
+    bool hasWallBelow;
 
     // Input
     [HideInInspector] public Vector2 inputMove;
@@ -74,8 +77,20 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        MovePlayer();
-        //AnimatePlayer();
+        // we use these to check if there are climbable surfaces in any direction
+        hasWallLeft = DetectWall(Vector2.left, climbableWallMask);
+        hasWallRight = DetectWall(Vector2.right, climbableWallMask);
+        hasWallAbove = DetectWall(Vector2.up, climbableWallMask);
+        hasWallBelow = DetectWall(Vector2.down, climbableWallMask);
+
+        // move player
+        if (!ignoreMovement)
+        {
+            MovePlayer();
+        }
+
+        // animate player
+        AnimatePlayer2();
     }
 
     void MovePlayer()
@@ -85,12 +100,6 @@ public class Player : MonoBehaviour
         bool letGo = inputLetGo;
 
         bool wallClimbing = false;
-
-        // we use these to check if there is a climbable surface in any direction
-        bool hasWallLeft  = DetectWall(Vector2.left, climbableWallMask);
-        bool hasWallRight = DetectWall(Vector2.right, climbableWallMask);
-        bool hasWallAbove = DetectWall(Vector2.up, climbableWallMask);
-        bool hasWallBelow = DetectWall(Vector2.down, climbableWallMask);
 
         if (canGrabWalls)
         {
@@ -164,30 +173,7 @@ public class Player : MonoBehaviour
         }
 
         // Pass resulting movement to controller
-        if (!ignoreMovement)
-        {
-            controller.Move(velocity * Time.deltaTime);
-        }
-
-        // ANIMATION
-
-        if (hasWallRight) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 90);
-        if (hasWallLeft) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, -90);
-        if (hasWallAbove) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 180);
-        if (hasWallBelow) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-        //below
-        if (hasWallBelow && hor < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
-        if (hasWallBelow && hor > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
-        //above
-        if (hasWallAbove && hor < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
-        if (hasWallAbove && hor > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
-        //left
-        if (hasWallLeft && ver > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
-        if (hasWallLeft && ver < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
-        //right
-        if (hasWallRight && ver > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
-        if (hasWallRight && ver < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     void AnimatePlayer()
@@ -248,7 +234,23 @@ public class Player : MonoBehaviour
 
     void AnimatePlayer2()
     {
+        if (hasWallRight) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 90);
+        if (hasWallLeft) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, -90);
+        if (hasWallAbove) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 180);
+        if (hasWallBelow) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 0);
 
+        //below
+        if (hasWallBelow && inputMove.x < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        if (hasWallBelow && inputMove.x > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        //above
+        if (hasWallAbove && inputMove.x < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        if (hasWallAbove && velocity.x > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        //left
+        if (hasWallLeft && inputMove.y > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        if (hasWallLeft && inputMove.y < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        //right
+        if (hasWallRight && inputMove.y > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        if (hasWallRight && inputMove.y < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
     }
 
     public void GoAroundCorner(Vector2 cornerPos, Vector2 translateDirection)
@@ -261,9 +263,17 @@ public class Player : MonoBehaviour
         ignoreMovement = true;
         //spriteRenderer.sprite = cornerSprite;
 
-        //yield return new WaitForSeconds(0.4f);
+        //yield return new WaitForSeconds(0.1f);
 
-        coll.transform.position = cornerPos + translateDirection * coll.bounds.extents;
+        Vector2 diff = ((Vector2)transform.position - cornerPos);
+        if (Mathf.Sign(diff.x) == Mathf.Sign(diff.y))
+        {
+            diff *= -1;
+        }
+        diff *= Mathf.Sign(edgeOverhangThreshold - 0.5f);
+
+        //coll.transform.position = cornerPos + translateDirection * coll.bounds.extents;
+        coll.transform.position = new Vector2(cornerPos.x - diff.y, cornerPos.y - diff.x);
 
         yield return new WaitForSeconds(0.2f);
 
@@ -460,7 +470,7 @@ public class Player : MonoBehaviour
 
         // calculate the corner position
         Vector2 cornerPos = floatingComponent + groundedComponent;
-
+        
         GoAroundCorner(cornerPos, edgeDirection);
     }
 }
