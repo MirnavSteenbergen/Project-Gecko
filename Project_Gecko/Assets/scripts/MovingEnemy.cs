@@ -25,11 +25,13 @@ public class MovingEnemy : MonoBehaviour
 
     private Controller2D controller;
     private BoxCollider2D coll;
+    private SpriteRenderer sprite;
 
     private void Awake()
     {
         controller = GetComponent<Controller2D>();
         coll = GetComponent<BoxCollider2D>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Start is called before the first frame update
@@ -141,6 +143,10 @@ public class MovingEnemy : MonoBehaviour
 
         // Pass resulting movement to controller
         controller.Move(velocity * Time.deltaTime);
+
+        // animation
+
+        sprite.flipX = velocity.x < 0;
     }
 
     bool DetectWall(Vector2 direction, LayerMask mask)
