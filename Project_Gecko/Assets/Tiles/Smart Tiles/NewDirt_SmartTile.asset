@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e4e4fc705376343a3e65b25d94f0e2, type: 3}
+  m_Name: NewDirt_SmartTile
+  m_EditorClassIdentifier: 
+  m_Sprites:
+  - {fileID: -7575224394097512123, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: -9114550328704847729, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: -938898266168538928, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: 8904035394685719655, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: 4276588545741941789, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: -1059146876499693725, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: -5520057989778299182, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: 266337253876249904, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: -8193266027256883840, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: 897269916621452769, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: -1326455837101396051, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: 3969593343352572456, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: -3601063740306803038, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: 7634348003487141279, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
+  - {fileID: 3356880096211005941, guid: ac398d07da167ba4c9c5a2d3e5a924bf, type: 3}
