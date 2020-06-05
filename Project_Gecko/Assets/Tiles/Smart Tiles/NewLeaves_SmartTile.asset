@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e4e4fc705376343a3e65b25d94f0e2, type: 3}
+  m_Name: NewLeaves_SmartTile
+  m_EditorClassIdentifier: 
+  m_Sprites:
+  - {fileID: -6818173540958894577, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: 914079067110248304, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -7610409370485589818, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -3517901634587624641, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: 5786571916765729217, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -7554313870671024972, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -609759544615907584, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -8318971137994023370, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: 669295739296051210, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -3660015943721758695, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: 4971454935009824696, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: 2969790205049190126, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -2710754022765014516, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -8022231442399398925, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
+  - {fileID: -8436770829467384218, guid: ac2d39a78a35e184197558efc950f8f8, type: 3}
