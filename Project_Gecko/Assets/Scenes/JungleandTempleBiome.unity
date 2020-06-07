@@ -545,26 +545,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1489430922859853029, guid: 8b9482373e613324bb85769a90e0bdf7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1489430922859853029, guid: 8b9482373e613324bb85769a90e0bdf7,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: cd0b914e26190ca4f82b2eb7c7683658, type: 3}
-    - target: {fileID: 2680829550455844845, guid: 8b9482373e613324bb85769a90e0bdf7,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2680829550455844845, guid: 8b9482373e613324bb85769a90e0bdf7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3902112581776770235, guid: 8b9482373e613324bb85769a90e0bdf7,
         type: 3}
       propertyPath: joystick
@@ -54619,9 +54599,19 @@ PrefabInstance:
       objectReference: {fileID: 225174839}
     - target: {fileID: 507348107816236080, guid: a8c294a1121194b4a8d1b286bc4a812b,
         type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LetGoButtonPressed
+      objectReference: {fileID: 0}
+    - target: {fileID: 507348107816236080, guid: a8c294a1121194b4a8d1b286bc4a812b,
+        type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 225174839}
+    - target: {fileID: 507348107816236080, guid: a8c294a1121194b4a8d1b286bc4a812b,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LetGoButtonReleased
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8c294a1121194b4a8d1b286bc4a812b, type: 3}
 --- !u!50 &1038402700644399597

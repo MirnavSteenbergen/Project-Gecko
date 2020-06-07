@@ -163,12 +163,23 @@ MonoBehaviour:
       m_Calls: []
   m_ControlsChangedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3902112581776770235}
+        m_MethodName: OnDeviceChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8203366587600329028}
-        m_MethodName: InputMove
+      - m_Target: {fileID: 3902112581776770235}
+        m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -182,8 +193,8 @@ MonoBehaviour:
     m_ActionName: Player Controls/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8203366587600329028}
-        m_MethodName: InputLetGo
+      - m_Target: {fileID: 3902112581776770235}
+        m_MethodName: OnGrab
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -195,6 +206,21 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 04ba8149-15a7-4c45-924b-190c83feba2e
     m_ActionName: Player Controls/Let Go[/Keyboard/z]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3902112581776770235}
+        m_MethodName: OnLetGo
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9c891338-c435-4533-ab03-da7d3f6a84be
+    m_ActionName: Player Controls/Let Go
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Controls
@@ -207,7 +233,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8203366587600329029}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8d090e60039b37949b5a8a0379654050, type: 3}
@@ -404,8 +430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e9bb11e18af9d439b50f78b8020e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
   useTouchControls: 0
+  joystick: {fileID: 0}
 --- !u!1 &8203366588446453536
 GameObject:
   m_ObjectHideFlags: 0

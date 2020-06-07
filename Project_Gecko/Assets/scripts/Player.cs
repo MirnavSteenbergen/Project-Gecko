@@ -346,7 +346,7 @@ public class Player : MonoBehaviour
         canGrabWalls = true;
     }
 
-    // INPUT
+    #region Input Stuff
 
     public void InputMove(InputAction.CallbackContext context)
     {
@@ -358,6 +358,20 @@ public class Player : MonoBehaviour
         if (context.started) inputLetGo = true;
         if (context.canceled) inputLetGo = false;
     }
+
+    public void InputMove(Vector2 direction)
+    {
+        inputMove = direction;
+        Debug.Log("Player Input Move");
+    }
+
+    public void InputLetGo(bool letgo)
+    {
+        inputLetGo = letgo;
+        Debug.Log("Player Input Let GO");
+    }
+
+    #endregion
 
     #region wall stuff
 
@@ -507,8 +521,8 @@ public class Player : MonoBehaviour
     void PlayStepSound()
     {
         // play sound
-        stepSound.Play();
-        stepRoutine = StartCoroutine(WaitForNextStep());
+        //stepSound.Play();
+        //stepRoutine = StartCoroutine(WaitForNextStep());
     }
 
     IEnumerator WaitForNextStep()
