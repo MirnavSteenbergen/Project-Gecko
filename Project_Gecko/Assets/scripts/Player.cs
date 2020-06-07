@@ -32,6 +32,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite idleSprite;
     [SerializeField] private Sprite cornerSprite;
 
+    [Header("Sound")]
+    [SerializeField] private float stepDuration = 0.2f;
+    public AudioSource deathSound;
+    public AudioSource stepSound;
+    private Coroutine stepRoutine;
+
     // private variables
     public Vector2 velocity;
     private bool grounded; // Only used for animation
@@ -42,6 +48,7 @@ public class Player : MonoBehaviour
     bool hasWallRight;
     bool hasWallAbove;
     bool hasWallBelow;
+    bool isWalking;
 
     // Input
     [HideInInspector] public Vector2 inputMove;
@@ -56,9 +63,6 @@ public class Player : MonoBehaviour
     private Grid tileGrid;
     private CornerDetection cd;
 
-    //sounds
-    public AudioSource deathSound;
-
     void Awake()
     {
         controller = GetComponent<Controller2D>();
@@ -72,7 +76,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        deathSound = GetComponent<AudioSource>();
+
     }
 
     void Update()
@@ -98,6 +102,26 @@ public class Player : MonoBehaviour
         float hor = inputMove.x;
         float ver = inputMove.y;
         bool letGo = inputLetGo;
+
+        // WALKING
+        
+        if (!isWalking)
+        {
+            if (PlayerIsWalking())
+            {
+                isWalking = true;
+                PlayStepSound();
+            }
+        }
+        else
+        {
+            if (!PlayerIsWalking())
+            {
+                isWalking = false;
+            }
+        }
+
+        // WALLCMIBING
 
         bool wallClimbing = false;
 
@@ -335,6 +359,8 @@ public class Player : MonoBehaviour
         if (context.canceled) inputLetGo = false;
     }
 
+    #region wall stuff
+
     // WALL CLIMBING
 
     bool DetectWall(Vector2 direction, LayerMask mask)
@@ -472,5 +498,40 @@ public class Player : MonoBehaviour
         Vector2 cornerPos = floatingComponent + groundedComponent;
         
         GoAroundCorner(cornerPos, edgeDirection);
+    }
+
+    #endregion
+
+    #region sound stuff
+
+    void PlayStepSound()
+    {
+        // play sound
+        stepSound.Play();
+        stepRoutine = StartCoroutine(WaitForNextStep());
+    }
+
+    IEnumerator WaitForNextStep()
+    {
+        yield return new WaitForSeconds(stepDuration);
+
+        if (isWalking)
+        {
+            PlayStepSound();
+        }
+    }
+
+    #endregion
+
+    bool PlayerIsWalking()
+    {
+        bool isWalking = false;
+
+        if (hasWallBelow && inputMove.x != 0) isWalking = true;
+        if (hasWallAbove && inputMove.x != 0) isWalking = true;
+        if (hasWallLeft && inputMove.y != 0) isWalking = true;
+        if (hasWallRight && inputMove.y != 0) isWalking = true;
+
+        return isWalking;
     }
 }

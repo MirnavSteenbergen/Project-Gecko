@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
   m_Name: Lava_SmartTile
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 21300000, guid: c6db29bb363f97d4ea6fdf6d6dee55aa, type: 3}
+  m_DefaultSprite: {fileID: -8890641348306671835, guid: 70c4226a14f92ea4f992e570b23a9605,
+    type: 3}
   m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 21300000, guid: c6db29bb363f97d4ea6fdf6d6dee55aa, type: 3}
+    - {fileID: -8890641348306671835, guid: 70c4226a14f92ea4f992e570b23a9605, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
@@ -34,11 +35,12 @@ MonoBehaviour:
     m_RuleTransform: 0
   - m_Id: 1
     m_Sprites:
-    - {fileID: 21300000, guid: 4ea37aace602fff4f80e68737a804c54, type: 3}
+    - {fileID: -5019001754007818968, guid: 70c4226a14f92ea4f992e570b23a9605, type: 3}
+    - {fileID: -5565025032182250017, guid: 70c4226a14f92ea4f992e570b23a9605, type: 3}
     m_GameObject: {fileID: 0}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
-    m_Output: 0
+    m_Output: 2
     m_ColliderType: 1
     m_RandomTransform: 0
     m_Neighbors: 02000000
