@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 1316798823}
   - component: {fileID: 1489430922859853029}
   - component: {fileID: 2680829550455844845}
-  - component: {fileID: 225174839}
   - component: {fileID: 3902112581776770235}
   m_Layer: 11
   m_Name: Player
@@ -393,20 +392,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &225174839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8203366587600329029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65e9bb11e18af9d439b50f78b8020e54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
-  useTouchControls: 0
 --- !u!114 &3902112581776770235
 MonoBehaviour:
   m_ObjectHideFlags: 0

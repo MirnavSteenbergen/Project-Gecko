@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ScreenTile
+  m_Name: SkyBG_Tile
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 6c2dc9f90a5a6ff4c8be820f772ec182, type: 3}
-  m_Color: {r: 0.36056745, g: 0.8773585, b: 0.3600481, a: 0.3254902}
+  m_Sprite: {fileID: 21300000, guid: c0a183ba7e9830e4e9198f86789f82ed, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
