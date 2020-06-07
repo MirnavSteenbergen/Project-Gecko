@@ -22,14 +22,14 @@ public class wigglescript : MonoBehaviour
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
 
-        if (theSprite.flipY == false)
+        if (theSprite.flipX == false)
         {
-            theSprite.flipY = true;
+            theSprite.flipX = true;
             wiggleCount += 1;
         }
         else
         {
-            theSprite.flipY = false;
+            theSprite.flipX = false;
             wiggleCount += 1;
         }
 
