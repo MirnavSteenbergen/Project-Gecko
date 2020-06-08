@@ -12,12 +12,22 @@ public class PauseMenu : MonoBehaviour
     public GameObject touchInputUI;
     public Text UIswitchButtonText;
 
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         if (!Data.instance.showTouchInputUI)
         {
             touchInputUI.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void Pause()
@@ -47,5 +57,7 @@ public class PauseMenu : MonoBehaviour
     public void GoBackToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
+        gameIsPaused = false;
     }
 }

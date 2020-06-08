@@ -21,14 +21,6 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Screen.width < Screen.height)
-        {
-            Screen.SetResolution(Screen.height / 7 * 12, Screen.height, FullScreenMode.MaximizedWindow);
-        }
-        else
-        {
-            Screen.SetResolution(Screen.width, Screen.width / 12 * 7, FullScreenMode.MaximizedWindow);
-        }
         
     }
 

@@ -56,3 +56,6 @@ TagManager:
   - name: Foreground
     uniqueID: 2814031889
     locked: 0
+  - name: Camera
+    uniqueID: 1120627917
+    locked: 0
