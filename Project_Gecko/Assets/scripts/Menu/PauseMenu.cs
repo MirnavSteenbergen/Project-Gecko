@@ -36,7 +36,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         gameIsPaused = true;
 
-        UIswitchButtonText.text = (Data.instance.showTouchInputUI ? "Hide" : "Show") + " Touch Input Overlay";
+        UIswitchButtonText.text = (Data.instance.showTouchInputUI ? "Hide" : "Show") + " Touch Input Overlay (PC only)";
     }
 
     public void Resume()
@@ -51,7 +51,7 @@ public class PauseMenu : MonoBehaviour
         bool showOverlay = !Data.instance.showTouchInputUI;
         Data.instance.showTouchInputUI = showOverlay;
         touchInputUI.SetActive(showOverlay);
-        UIswitchButtonText.text = (showOverlay ? "Hide" : "Show") + " Touch Input Overlay";
+        UIswitchButtonText.text = (showOverlay ? "Hide" : "Show") + " Touch Input Overlay (PC only)";
     }
 
     public void GoBackToMenu()

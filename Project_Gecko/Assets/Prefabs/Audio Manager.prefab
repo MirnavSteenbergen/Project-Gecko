@@ -79,3 +79,10 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Player_Step_4
+    clip: {fileID: 8300000, guid: b4106902520497a4a8afda26a5472a4b, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
