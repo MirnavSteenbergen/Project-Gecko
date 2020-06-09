@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7418501361431339918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 290.98795, y: 183.15208, z: -363.92435}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,4 +43,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f52ffde43bba86148a82a26f1e519a4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: Player Die
+    clip: {fileID: 8300000, guid: 8d090e60039b37949b5a8a0379654050, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Player_Step_1
+    clip: {fileID: 8300000, guid: cd0b914e26190ca4f82b2eb7c7683658, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Player_Step_2
+    clip: {fileID: 8300000, guid: 69e97435e0f8e6c4ab18eeb3e543e315, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Player_Step_3
+    clip: {fileID: 8300000, guid: 3ec7a74da1e3b6b48ac37e92d4f99a30, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Player_Step_4
+    clip: {fileID: 8300000, guid: 2c76dd06855421342aebbdd38d973909, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

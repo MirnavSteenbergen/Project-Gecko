@@ -34,8 +34,6 @@ public class Player : MonoBehaviour
 
     [Header("Sound")]
     [SerializeField] private float stepDuration = 0.2f;
-    public AudioSource deathSound;
-    public AudioSource stepSound;
     private Coroutine stepRoutine;
 
     // private variables
@@ -49,6 +47,7 @@ public class Player : MonoBehaviour
     bool hasWallAbove;
     bool hasWallBelow;
     bool isWalking;
+    private Vector2 groundedDirection;
 
     // Input
     [HideInInspector] public Vector2 inputMove;
@@ -87,6 +86,18 @@ public class Player : MonoBehaviour
         hasWallAbove = DetectWall(Vector2.up, climbableWallMask);
         hasWallBelow = DetectWall(Vector2.down, climbableWallMask);
 
+        // grounded direction
+        if (hasWallBelow)
+            groundedDirection = Vector2.down;
+        else if (hasWallAbove)
+            groundedDirection = Vector2.up;
+        else if (hasWallLeft)
+            groundedDirection = Vector2.left;
+        else if (hasWallRight)
+            groundedDirection = Vector2.right;
+
+        Debug.DrawLine(transform.position, (Vector2)transform.position + groundedDirection, Color.red);
+
         // move player
         if (!ignoreMovement)
         {
@@ -102,42 +113,24 @@ public class Player : MonoBehaviour
         float hor = inputMove.x;
         float ver = inputMove.y;
         bool letGo = inputLetGo;
-
-        // WALKING
         
-        if (!isWalking)
-        {
-            if (PlayerIsWalking())
-            {
-                isWalking = true;
-                PlayStepSound();
-            }
-        }
-        else
-        {
-            if (!PlayerIsWalking())
-            {
-                isWalking = false;
-            }
-        }
-
         // WALLCMIBING
 
         bool wallClimbing = false;
+        isWalking = false;
 
         if (canGrabWalls)
         {
             if (hasWallAbove || hasWallBelow || hasWallLeft || hasWallRight)
             {
                 wallClimbing = true;
-
-                // check edges to move around them
-                //cd.CheckForCorner(new Vector2(hor, 0));
-                //cd.CheckForCorner(new Vector2(0, ver));
-
+                
                 if (hasWallAbove || hasWallBelow)
                 {
                     velocity.x = hor * maxSpeed;
+
+                    if (hor != 0)
+                        isWalking = true;
 
                     // stop de speler aan een edge links
                     if (DetectEdge(Vector2.left) && velocity.x < 0) velocity.x = 0;
@@ -148,6 +141,9 @@ public class Player : MonoBehaviour
                 if (hasWallLeft || hasWallRight)
                 {
                     velocity.y = ver * maxSpeed;
+
+                    if (ver != 0)
+                        isWalking = true;
 
                     // stop de speler aan een egde boven
                     if (DetectEdge(Vector2.up) && velocity.y > 0) velocity.y = 0;
@@ -161,10 +157,13 @@ public class Player : MonoBehaviour
                     velocity.x = hor * maxSpeed;
                 }
 
+                // edge detection
                 if (hasWallLeft && hor < 0) CheckForCorner(Vector2.left);
                 if (hasWallRight && hor > 0) CheckForCorner(Vector2.right);
                 if (hasWallAbove && ver > 0) CheckForCorner(Vector2.up);
                 if (hasWallBelow && ver < 0) CheckForCorner(Vector2.down);
+
+                
             }
         }
 
@@ -258,11 +257,8 @@ public class Player : MonoBehaviour
 
     void AnimatePlayer2()
     {
-        if (hasWallRight) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 90);
-        if (hasWallLeft) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, -90);
-        if (hasWallAbove) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 180);
-        if (hasWallBelow) spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, 0);
-
+        spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, DirectionToAngle(groundedDirection) + 90);
+        
         //below
         if (hasWallBelow && inputMove.x < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
         if (hasWallBelow && inputMove.x > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
@@ -275,37 +271,21 @@ public class Player : MonoBehaviour
         //right
         if (hasWallRight && inputMove.y > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
         if (hasWallRight && inputMove.y < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+
+        animator.SetBool("isWalking", PlayerIsWalking());
     }
 
-    public void GoAroundCorner(Vector2 cornerPos, Vector2 translateDirection)
+    // outputs 0 to 360 degrees
+    float DirectionToAngle(Vector2 direction)
     {
-        StartCoroutine(GoAroundCornerRoutine(cornerPos, translateDirection));
-    }
-
-    IEnumerator GoAroundCornerRoutine(Vector2 cornerPos, Vector2 translateDirection)
-    {
-        ignoreMovement = true;
-        //spriteRenderer.sprite = cornerSprite;
-
-        //yield return new WaitForSeconds(0.1f);
-
-        Vector2 diff = ((Vector2)transform.position - cornerPos);
-        if (Mathf.Sign(diff.x) == Mathf.Sign(diff.y))
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        if (angle < 0)
         {
-            diff *= -1;
+            angle += 360;
         }
-        diff *= Mathf.Sign(edgeOverhangThreshold - 0.5f);
-
-        //coll.transform.position = cornerPos + translateDirection * coll.bounds.extents;
-        coll.transform.position = new Vector2(cornerPos.x - diff.y, cornerPos.y - diff.x);
-
-        yield return new WaitForSeconds(0.2f);
-
-        ignoreMovement = false;
-        velocity = Vector2.zero;
-        //spriteRenderer.sprite = idleSprite;
+        return angle;
     }
-    
+
     public void SetCheckPointPosition(Vector2 pos)
     {
         lastCheckPointPosition = pos;
@@ -313,10 +293,13 @@ public class Player : MonoBehaviour
 
     public void KillPlayer()
     {
-        deathSound.Play();
+        string randomDieSound = "Player_Die_" + Random.Range(1, 3).ToString();
+        AudioManager.instance.Play(randomDieSound);
         transform.position = lastCheckPointPosition;
         velocity = Vector2.zero;
     }
+
+    #region Powerup
 
     public void PickUpBerry()
     {
@@ -334,6 +317,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    #endregion
+
     public void ReleaseFromWall()
     {
         StartCoroutine(releaseCooldown());
@@ -345,33 +330,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         canGrabWalls = true;
     }
-
-    #region Input Stuff
-
-    public void InputMove(InputAction.CallbackContext context)
-    {
-        inputMove = context.ReadValue<Vector2>();
-    }
-
-    public void InputLetGo(InputAction.CallbackContext context)
-    {
-        if (context.started) inputLetGo = true;
-        if (context.canceled) inputLetGo = false;
-    }
-
-    public void InputMove(Vector2 direction)
-    {
-        inputMove = direction;
-        Debug.Log("Player Input Move");
-    }
-
-    public void InputLetGo(bool letgo)
-    {
-        inputLetGo = letgo;
-        Debug.Log("Player Input Let GO");
-    }
-
-    #endregion
 
     #region wall stuff
 
@@ -514,25 +472,44 @@ public class Player : MonoBehaviour
         GoAroundCorner(cornerPos, edgeDirection);
     }
 
+    public void GoAroundCorner(Vector2 cornerPos, Vector2 translateDirection)
+    {
+        StartCoroutine(GoAroundCornerRoutine(cornerPos, translateDirection));
+    }
+
+    IEnumerator GoAroundCornerRoutine(Vector2 cornerPos, Vector2 translateDirection)
+    {
+        ignoreMovement = true;
+        //spriteRenderer.sprite = cornerSprite;
+
+        //yield return new WaitForSeconds(0.1f);
+
+        Vector2 diff = ((Vector2)transform.position - cornerPos);
+        if (Mathf.Sign(diff.x) == Mathf.Sign(diff.y))
+        {
+            diff *= -1;
+        }
+        diff *= Mathf.Sign(edgeOverhangThreshold - 0.5f);
+
+        //coll.transform.position = cornerPos + translateDirection * coll.bounds.extents;
+        coll.transform.position = new Vector2(cornerPos.x - diff.y, cornerPos.y - diff.x);
+
+        yield return new WaitForSeconds(0.2f);
+        
+        ignoreMovement = false;
+        velocity = Vector2.zero;
+        //spriteRenderer.sprite = idleSprite;
+    }
+
     #endregion
 
     #region sound stuff
 
-    void PlayStepSound()
+    public void PlayStepSound()
     {
         // play sound
-        //stepSound.Play();
-        //stepRoutine = StartCoroutine(WaitForNextStep());
-    }
-
-    IEnumerator WaitForNextStep()
-    {
-        yield return new WaitForSeconds(stepDuration);
-
-        if (isWalking)
-        {
-            PlayStepSound();
-        }
+        int randomIndex = Random.Range(1, 5);
+        AudioManager.instance.Play("Player_Step_" + randomIndex.ToString());
     }
 
     #endregion
@@ -541,10 +518,10 @@ public class Player : MonoBehaviour
     {
         bool isWalking = false;
 
-        if (hasWallBelow && inputMove.x != 0) isWalking = true;
-        if (hasWallAbove && inputMove.x != 0) isWalking = true;
-        if (hasWallLeft && inputMove.y != 0) isWalking = true;
-        if (hasWallRight && inputMove.y != 0) isWalking = true;
+        if (hasWallBelow && velocity.x != 0) isWalking = true;
+        if (hasWallAbove && velocity.x != 0) isWalking = true;
+        if (hasWallLeft && velocity.y != 0) isWalking = true;
+        if (hasWallRight && velocity.y != 0) isWalking = true;
 
         return isWalking;
     }
