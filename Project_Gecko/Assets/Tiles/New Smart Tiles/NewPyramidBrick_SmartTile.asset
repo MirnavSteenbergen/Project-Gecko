@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e4e4fc705376343a3e65b25d94f0e2, type: 3}
+  m_Name: NewPyramidBrick_SmartTile
+  m_EditorClassIdentifier: 
+  m_Sprites:
+  - {fileID: -3934054780199349864, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: 1946818766927944584, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: 3572713872783287094, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: 3015560667576180764, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: -4695201829193252084, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: 4727188830216317389, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: -5737109931080510893, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: -7761343712289947013, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: 7573697018661785200, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: -6052382718630205393, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: -2583411159251110299, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: -4025186766074572989, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: -1985057193341681876, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: 8342343239319191949, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}
+  - {fileID: 4050805950648259858, guid: eb8d5291f430f464e943aeb4b1fb0fb5, type: 3}

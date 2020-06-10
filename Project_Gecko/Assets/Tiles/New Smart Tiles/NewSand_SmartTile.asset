@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e4e4fc705376343a3e65b25d94f0e2, type: 3}
+  m_Name: NewSand_SmartTile
+  m_EditorClassIdentifier: 
+  m_Sprites:
+  - {fileID: -2832835678475938717, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: -3856065963630828969, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: -8282316843577656451, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: 8236969598725415279, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: 7235585213513122564, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: -7908460076160033271, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: 8994380022392067709, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: 7803766732931245765, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: -2504009493283253577, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: -4653846700434788417, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: -318543291666251758, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: 2556362997693124822, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: -4194171483799474932, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: -1098643350034941065, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
+  - {fileID: 5515558082286208160, guid: fa2f07cdf2cc80b45b298bea396d8fef, type: 3}
