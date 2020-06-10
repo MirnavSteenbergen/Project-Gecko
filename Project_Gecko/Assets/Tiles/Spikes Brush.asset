@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Spikes Brush
   m_EditorClassIdentifier: 
   m_Cells:
-  - m_Tile: {fileID: 0}
+  - m_Tile: {fileID: 11400000, guid: 73745e1678aded94da420f999f8cfe34, type: 2}
     m_Matrix:
       e00: 1
       e01: 0
@@ -39,4 +39,4 @@ MonoBehaviour:
   m_Prefab: {fileID: 2005899544060224490, guid: 1611b685d618da84c87a67a787f4acac,
     type: 3}
   m_ForceDelete: 0
-  m_Rotation: {x: 0, y: 0, z: 90}
+  m_Rotation: {x: 0, y: 0, z: 0}

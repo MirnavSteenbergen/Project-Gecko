@@ -131,4 +131,4 @@ MonoBehaviour:
     type: 3}
   shootAngle: 180
   shootAngleTurnAmount: 0
-  shootTimeOutDuration: 0.5
+  shootTimeOutDuration: 5
