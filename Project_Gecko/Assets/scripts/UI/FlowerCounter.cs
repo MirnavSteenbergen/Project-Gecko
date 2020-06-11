@@ -25,4 +25,9 @@ public class FlowerCounter : MonoBehaviour
         PlayerPrefs.SetInt("Flowers", flowerCount);
     }
 
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteAll();
+    }
+
 }
