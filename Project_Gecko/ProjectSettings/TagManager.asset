@@ -47,6 +47,9 @@ TagManager:
   - name: Level BG
     uniqueID: 1603614565
     locked: 0
+  - name: inside cave
+    uniqueID: 551655141
+    locked: 0
   - name: Background
     uniqueID: 4236228115
     locked: 0
