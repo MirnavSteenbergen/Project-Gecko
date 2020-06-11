@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Player Die
+  - name: Player_Die_1
     clip: {fileID: 8300000, guid: 8d090e60039b37949b5a8a0379654050, type: 3}
     audioMixerGroup: {fileID: 0}
     volume: 0.5
@@ -79,8 +79,8 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: Player_Step_4
-    clip: {fileID: 8300000, guid: b4106902520497a4a8afda26a5472a4b, type: 3}
+  - name: Player_Die_2
+    clip: {fileID: 8300000, guid: 0ee8e11fdb0d23243acb449157ced6a0, type: 3}
     audioMixerGroup: {fileID: 0}
     volume: 0.5
     pitch: 1
