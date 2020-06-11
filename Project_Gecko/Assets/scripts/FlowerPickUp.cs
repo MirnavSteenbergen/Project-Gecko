@@ -21,8 +21,8 @@ public class FlowerPickUp : MonoBehaviour
     {
         if (collider.GetComponent<Player>() != null)
         {
+            FlowerCounter.addFlower();
             Destroy(gameObject);
-            // counter ++;
         }
     }
 }

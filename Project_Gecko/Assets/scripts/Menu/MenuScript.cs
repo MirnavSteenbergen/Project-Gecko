@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
+    public int flowers;
+    
     public void StartGame()
     {
         SceneManager.LoadScene(1);
+        PlayerPrefs.SetInt("Flowers", flowers);
     }
 
     public void LoadNextLevel()
