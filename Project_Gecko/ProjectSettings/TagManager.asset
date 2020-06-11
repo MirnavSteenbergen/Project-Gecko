@@ -41,9 +41,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Room Referece
-    uniqueID: 2945656919
-    locked: 0
   - name: Level BG
     uniqueID: 1603614565
     locked: 0
@@ -64,4 +61,7 @@ TagManager:
     locked: 0
   - name: Camera
     uniqueID: 1120627917
+    locked: 0
+  - name: Room Referece
+    uniqueID: 2945656919
     locked: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ScreenTile
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 6c2dc9f90a5a6ff4c8be820f772ec182, type: 3}
-  m_Color: {r: 0.36056745, g: 0.8773585, b: 0.3600481, a: 0.3254902}
+  m_Color: {r: 0.7122642, g: 1, b: 0.7122642, a: 0.15686275}
   m_Transform:
     e00: 1
     e01: 0
