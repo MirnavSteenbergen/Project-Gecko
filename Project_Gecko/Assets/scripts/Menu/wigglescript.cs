@@ -7,6 +7,12 @@ public class wigglescript : MonoBehaviour
     SpriteRenderer theSprite;
     private int wiggleCount = 0;
     public int fall = 50;
+    
+
+    private void Awake()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +20,10 @@ public class wigglescript : MonoBehaviour
         theSprite = GetComponent<SpriteRenderer>();
     }
 
+    void OnWiggle()
+    {
+        Wiggle();
+    }
 
     public void Wiggle()
     {
