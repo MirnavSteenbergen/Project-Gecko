@@ -16,12 +16,30 @@ public class TacklePlayer : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        Player player = collider.GetComponent<Player>();
+        if (player != null)
+        {
+            AudioManager.instance.Play("Beehive");
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collider)
     {
         Player player = collider.GetComponent<Player>();
         if (player != null)
         {
             player.ReleaseFromWall();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        Player player = collider.GetComponent<Player>();
+        if (player != null)
+        {
+            AudioManager.instance.Stop("Beehive");
         }
     }
 }

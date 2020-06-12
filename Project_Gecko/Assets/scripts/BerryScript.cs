@@ -31,6 +31,8 @@ public class BerryScript : MonoBehaviour
             col.enabled = false;
             spriteRenderer.enabled = false;
             StartCoroutine(RespawnBerry());
+
+            AudioManager.instance.Play("Berry_Pickup");
         }
     }
 }

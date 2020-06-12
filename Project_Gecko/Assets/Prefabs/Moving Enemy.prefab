@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df086a4b975e0f4395294f838fc84c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundOnTouch: Snake_Hiss
 --- !u!95 &3507829752761673639
 Animator:
   serializedVersion: 3

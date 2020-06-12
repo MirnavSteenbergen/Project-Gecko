@@ -86,3 +86,31 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Snake_Hiss
+    clip: {fileID: 8300000, guid: 52c4cd24a653f264f9efb1fa6c8751a6, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.8
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Lava
+    clip: {fileID: 8300000, guid: 825273aaad14cbe48a42c6c1b921b2fd, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Beehive
+    clip: {fileID: 8300000, guid: b64955f42857e1940874502ff4082f98, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Berry_Pickup
+    clip: {fileID: 8300000, guid: 8dbfea7ddc2acff44b7ff0b16d6a4e43, type: 3}
+    audioMixerGroup: {fileID: 0}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

@@ -62,6 +62,9 @@ MonoBehaviour:
   UnclimbableWallMask:
     serializedVersion: 2
     m_Bits: 131072
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 229376
   skinWidth: 0.015
   powerUpDuration: 10
   tiltAngle: -15
