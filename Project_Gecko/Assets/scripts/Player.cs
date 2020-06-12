@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] [Range(0.0f, 1.0f)] private float edgeOverhangThreshold = 0.5f;
     [SerializeField] public LayerMask climbableWallMask;
     [SerializeField] public LayerMask UnclimbableWallMask;
+    [SerializeField] private LayerMask wallMask;
     [SerializeField] private float skinWidth = 0.015f;
 
     [Header("Berry")]
@@ -42,11 +43,11 @@ public class Player : MonoBehaviour
     private bool ignoreMovement = false;
     private bool canGrabWalls = true;
     private Vector2 lastCheckPointPosition;
-    bool hasWallLeft;
-    bool hasWallRight;
-    bool hasWallAbove;
-    bool hasWallBelow;
-    bool isWalking;
+    bool hasClimbableWallLeft;
+    bool hasClimbableWallRight;
+    bool hasClimbableWallAbove;
+    bool hasClimbableWallBelow;
+    bool hasAnyWallBelow;
     private Vector2 groundedDirection;
 
     // Input
@@ -81,19 +82,20 @@ public class Player : MonoBehaviour
     void Update()
     {
         // we use these to check if there are climbable surfaces in any direction
-        hasWallLeft = DetectWall(Vector2.left, climbableWallMask);
-        hasWallRight = DetectWall(Vector2.right, climbableWallMask);
-        hasWallAbove = DetectWall(Vector2.up, climbableWallMask);
-        hasWallBelow = DetectWall(Vector2.down, climbableWallMask);
+        hasClimbableWallLeft = DetectWall(Vector2.left, climbableWallMask);
+        hasClimbableWallRight = DetectWall(Vector2.right, climbableWallMask);
+        hasClimbableWallAbove = DetectWall(Vector2.up, climbableWallMask);
+        hasClimbableWallBelow = DetectWall(Vector2.down, climbableWallMask);
+        hasAnyWallBelow = DetectWall(Vector2.down, wallMask);
 
         // grounded direction
-        if (hasWallBelow)
+        if (hasAnyWallBelow)
             groundedDirection = Vector2.down;
-        else if (hasWallAbove)
+        else if (hasClimbableWallAbove)
             groundedDirection = Vector2.up;
-        else if (hasWallLeft)
+        else if (hasClimbableWallLeft)
             groundedDirection = Vector2.left;
-        else if (hasWallRight)
+        else if (hasClimbableWallRight)
             groundedDirection = Vector2.right;
 
         Debug.DrawLine(transform.position, (Vector2)transform.position + groundedDirection, Color.red);
@@ -117,34 +119,27 @@ public class Player : MonoBehaviour
         // WALLCMIBING
 
         bool wallClimbing = false;
-        isWalking = false;
 
         if (canGrabWalls)
         {
-            if (hasWallAbove || hasWallBelow || hasWallLeft || hasWallRight)
+            if (hasClimbableWallAbove || hasClimbableWallBelow || hasClimbableWallLeft || hasClimbableWallRight)
             {
                 wallClimbing = true;
                 
-                if (hasWallAbove || hasWallBelow)
+                if (hasClimbableWallAbove || hasClimbableWallBelow)
                 {
                     velocity.x = hor * maxSpeed;
-
-                    if (hor != 0)
-                        isWalking = true;
-
+                    
                     // stop de speler aan een edge links
                     if (DetectEdge(Vector2.left) && velocity.x < 0) velocity.x = 0;
                     // stop de speler aan een edge rechts
                     if (DetectEdge(Vector2.right) && velocity.x > 0) velocity.x = 0;
                 }
 
-                if (hasWallLeft || hasWallRight)
+                if (hasClimbableWallLeft || hasClimbableWallRight)
                 {
                     velocity.y = ver * maxSpeed;
-
-                    if (ver != 0)
-                        isWalking = true;
-
+                    
                     // stop de speler aan een egde boven
                     if (DetectEdge(Vector2.up) && velocity.y > 0) velocity.y = 0;
                     // stop de speler aan een egde onder
@@ -158,10 +153,10 @@ public class Player : MonoBehaviour
                 }
 
                 // edge detection
-                if (hasWallLeft && hor < 0) CheckForCorner(Vector2.left);
-                if (hasWallRight && hor > 0) CheckForCorner(Vector2.right);
-                if (hasWallAbove && ver > 0) CheckForCorner(Vector2.up);
-                if (hasWallBelow && ver < 0) CheckForCorner(Vector2.down);
+                if (hasClimbableWallLeft && hor < 0) CheckForCorner(Vector2.left);
+                if (hasClimbableWallRight && hor > 0) CheckForCorner(Vector2.right);
+                if (hasClimbableWallAbove && ver > 0) CheckForCorner(Vector2.up);
+                if (hasClimbableWallBelow && ver < 0) CheckForCorner(Vector2.down);
 
                 
             }
@@ -257,22 +252,34 @@ public class Player : MonoBehaviour
 
     void AnimatePlayer2()
     {
+        // ROTATE SPRITE
+
         spriteRenderer.transform.rotation = Quaternion.Euler(0, 0, DirectionToAngle(groundedDirection) + 90);
         
-        //below
-        if (hasWallBelow && inputMove.x < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
-        if (hasWallBelow && inputMove.x > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
-        //above
-        if (hasWallAbove && inputMove.x < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
-        if (hasWallAbove && velocity.x > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
-        //left
-        if (hasWallLeft && inputMove.y > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
-        if (hasWallLeft && inputMove.y < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
-        //right
-        if (hasWallRight && inputMove.y > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
-        if (hasWallRight && inputMove.y < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        // FLIP SPRITE
 
-        animator.SetBool("isWalking", PlayerIsWalking());
+        //below
+        if (hasAnyWallBelow && inputMove.x < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        if (hasAnyWallBelow && inputMove.x > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        //above
+        if (hasClimbableWallAbove && inputMove.x < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        if (hasClimbableWallAbove && velocity.x > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        //left
+        if (hasClimbableWallLeft && inputMove.y > 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+        if (hasClimbableWallLeft && inputMove.y < 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        //right
+        if (hasClimbableWallRight && inputMove.y > 0 && spriteRenderer.flipX) spriteRenderer.flipX = false;
+        if (hasClimbableWallRight && inputMove.y < 0 && !spriteRenderer.flipX) spriteRenderer.flipX = true;
+
+        // WALKING
+        bool isWalking = false;
+        Vector2 checkMoveDirection = velocity * Vector2.Perpendicular(groundedDirection);
+        if (DetectWall(groundedDirection, wallMask) && checkMoveDirection.magnitude > 0)
+        {
+            isWalking = true;
+        }
+
+        animator.SetBool("isWalking", isWalking);
     }
 
     // outputs 0 to 360 degrees
@@ -513,16 +520,4 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-
-    bool PlayerIsWalking()
-    {
-        bool isWalking = false;
-
-        if (hasWallBelow && velocity.x != 0) isWalking = true;
-        if (hasWallAbove && velocity.x != 0) isWalking = true;
-        if (hasWallLeft && velocity.y != 0) isWalking = true;
-        if (hasWallRight && velocity.y != 0) isWalking = true;
-
-        return isWalking;
-    }
 }

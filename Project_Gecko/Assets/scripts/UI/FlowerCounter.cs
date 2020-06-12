@@ -16,7 +16,7 @@ public class FlowerCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Text.text = "" + flowerCount;
+        Text.text = flowerCount.ToString("00");
     }
 
     public static void addFlower ()
