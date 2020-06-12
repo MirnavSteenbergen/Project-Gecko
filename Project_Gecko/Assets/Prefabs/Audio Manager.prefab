@@ -110,7 +110,7 @@ MonoBehaviour:
   - name: Berry_Pickup
     clip: {fileID: 8300000, guid: 8dbfea7ddc2acff44b7ff0b16d6a4e43, type: 3}
     audioMixerGroup: {fileID: 0}
-    volume: 0.5
+    volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
