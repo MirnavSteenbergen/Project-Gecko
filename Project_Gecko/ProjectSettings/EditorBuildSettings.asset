@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Birdfight.unity
     guid: f7375d3976ef3c044802ba614717c146
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Woestijn.unity
     guid: 4015f5eeb5a8e2c46bf092fbe7e8c5c9
   - enabled: 1
